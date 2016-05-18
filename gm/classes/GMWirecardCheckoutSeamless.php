@@ -37,7 +37,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 	/**
 	 * @var string
 	 */
-	protected $_pluginversion = '1.0.2';
+	protected $_pluginversion = '1.0.3';
 
 	/**
 	 * config parameters
@@ -631,6 +631,11 @@ class GMWirecardCheckoutSeamless_ORIGIN
 			$init->setConfirmMail(STORE_OWNER_EMAIL_ADDRESS);
 		}
 
+		if ($this->getConfigValue('auto_deposit'))
+		{
+			$init->setAutoDeposit(true);
+		}
+
 		$init->setStorageReference(session_id(), $_SESSION['wcs_storage_id']);
 
 		if ($paymentType == WirecardCEE_Stdlib_PaymentTypeAbstract::EPS
@@ -1166,7 +1171,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 			$data = $this->_getCustomerData($order->customer['id']);
 			if ($data !== null)
 			{
-				if ($data['customers_dob'] != '0000-00-00 00:00:00')
+				if ($data['customers_dob'] !== '0000-00-00 00:00:00' && $data['customers_dob'] !== '1000-01-01 00:00:00')
 				{
 					$consumerData->setBirthDate(new DateTime($data['customers_dob']));
 				}

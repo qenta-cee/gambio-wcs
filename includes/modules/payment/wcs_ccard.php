@@ -68,7 +68,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 			                   $cssClass)
 		);
 
-		$field = sprintf('<select name="wcs_expirationmonth" class="%s wcs_expirationmonth input-select" data-wcs-fieldname="expirationMonth">',
+		$field = sprintf('<select name="wcs_expirationmonth" class="%s wcs_expirationmonth" data-wcs-fieldname="expirationMonth">',
 		                 $cssClass);
 		for($m = 1; $m <= 12; $m++)
 		{
@@ -76,7 +76,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 		}
 		$field .= '</select>&nbsp;';
 
-		$field .= sprintf('<select name="wcs_expirationyear" class="%s wcs_expirationyear input-select" data-wcs-fieldname="expirationYear">',
+		$field .= sprintf('<select name="wcs_expirationyear" class="%s wcs_expirationyear" data-wcs-fieldname="expirationYear">',
 		                  $cssClass);
 		foreach($this->getCreditCardYears() as $y)
 		{
@@ -96,7 +96,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 
 		if($this->_seamless->getConfigValue('creditcard_showissuedate'))
 		{
-			$field = sprintf('<select name="wcs_issuemonth" class="%s wcs_issuemonth input-select" data-wcs-fieldname="issueMonth">',
+			$field = sprintf('<select name="wcs_issuemonth" class="%s wcs_issuemonth" data-wcs-fieldname="issueMonth">',
 			                 $cssClass);
 			for($m = 1; $m <= 12; $m++)
 			{
@@ -104,7 +104,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 			}
 			$field .= '</select>&nbsp;';
 
-			$field .= sprintf('<select name="wcs_issueyear" class="%s wcs_issueyear input-select" data-wcs-fieldname="issueYear">',
+			$field .= sprintf('<select name="wcs_issueyear" class="%s wcs_issueyear" data-wcs-fieldname="issueYear">',
 			                  $cssClass);
 			foreach($this->getCreditCardIssueYears() as $y)
 			{

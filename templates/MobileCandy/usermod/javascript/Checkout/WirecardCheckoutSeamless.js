@@ -32,24 +32,24 @@ $(document).ready(function () {
 			if (typeof WirecardCEE_DataStorage !== "undefined") {
 				var wdcee = new WirecardCEE_DataStorage();
 				if ($('#wcsIframeContainerwcs_ccard').length > 0) {
-					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccard', '600px', '200px');
+					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccard', '262px', '203px');
 					wdcee.onIframeClick(self.handleIframeClick);
 				} else if ($('#wcsIframeContainerwcs_ccardmoto').length > 0) {
-					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccardmoto', '600px', '200px');
+					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccardmoto', '262px', '200px');
 					wdcee.onIframeClick(self.handleIframeClick);
 				}
 			}
 
 			var checkoutPaymentArea = $('#checkout_payment');
-			checkoutPaymentArea.find('.continue_button').on('click', function (e) {
 
+			checkoutPaymentArea.find('.continue_button').find('a').on('vclick', function (e) {
 				var code = checkoutPaymentArea.find("input[name='payment']:radio:checked").val();
 				// not a wirecard payment
 				if (!code.match(/^wcs_/))
 					return true;
 
 				if (checkoutPaymentArea.find('.errorText').length == 0) {
-					checkoutPaymentArea.find('h1').after('<div class="errorText"></div>');
+					checkoutPaymentArea.find('h2').first().after('<div class="errorText"></div>');
 				}
 
 				checkoutPaymentArea.find('.errorText').empty();
@@ -97,7 +97,7 @@ $(document).ready(function () {
 						} else {
 							// suppress errors in iframe mode
 							if (wirecardCheckoutSeamless.hasIframe(paymentType)) {
-								$('html, body').animate({scrollTop: $("#checkout_payment .module_option_checked").offset().top}, 'slow');
+								$('html, body').animate({scrollTop: $("#checkout_payment .payment_item.active").offset().top}, 'slow');
 								return;
 							}
 							var errors = responseObject.getErrors();
@@ -215,8 +215,8 @@ $(document).ready(function () {
 		},
 
 		handleIframeClick: function (event) {
-			$('div.payment_item').removeClass('module_option_checked');
-			$('#' + event.data.parentId).closest( "div.payment_item" ).addClass('module_option_checked');
+			$('div.payment_item').removeClass('active');
+			$('#' + event.data.parentId).closest( "div.payment_item" ).addClass('active');
 
 			if (event.data.parentId == 'wcsIframeContainerwcs_ccard') {
 				$("input[value='wcs_ccard']").prop("checked", true);

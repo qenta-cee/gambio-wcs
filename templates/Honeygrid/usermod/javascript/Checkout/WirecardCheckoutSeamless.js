@@ -32,15 +32,18 @@ $(document).ready(function () {
 			if (typeof WirecardCEE_DataStorage !== "undefined") {
 				var wdcee = new WirecardCEE_DataStorage();
 				if ($('#wcsIframeContainerwcs_ccard').length > 0) {
-					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccard', '600px', '200px');
+					var width = $('#wcsIframeContainerwcs_ccard').parent().width() + 'px';
+					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccard', width, '200px');
 					wdcee.onIframeClick(self.handleIframeClick);
 				} else if ($('#wcsIframeContainerwcs_ccardmoto').length > 0) {
-					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccardmoto', '600px', '200px');
+					var width = $('#wcsIframeContainerwcs_ccardmoto').parent().width() + 'px';
+					this.pci3Iframes.CCARD = wdcee.buildIframeCreditCard('wcsIframeContainerwcs_ccardmoto', width, '200px');
 					wdcee.onIframeClick(self.handleIframeClick);
 				}
 			}
 
 			var checkoutPaymentArea = $('#checkout_payment');
+			var mainInsideArea = $('.main-inside');
 			checkoutPaymentArea.find('.continue_button').on('click', function (e) {
 
 				var code = checkoutPaymentArea.find("input[name='payment']:radio:checked").val();
@@ -48,8 +51,8 @@ $(document).ready(function () {
 				if (!code.match(/^wcs_/))
 					return true;
 
-				if (checkoutPaymentArea.find('.errorText').length == 0) {
-					checkoutPaymentArea.find('h1').after('<div class="errorText"></div>');
+				if (mainInsideArea.find('.alert-danger').length == 0) {
+					mainInsideArea.find('h1').after('<div class="alert alert-danger"></div>');
 				}
 
 				checkoutPaymentArea.find('.errorText').empty();
@@ -97,7 +100,7 @@ $(document).ready(function () {
 						} else {
 							// suppress errors in iframe mode
 							if (wirecardCheckoutSeamless.hasIframe(paymentType)) {
-								$('html, body').animate({scrollTop: $("#checkout_payment .module_option_checked").offset().top}, 'slow');
+								$('html, body').animate({scrollTop: $("#checkout_payment .list-group-item.active").offset().top - 150}, 'slow');
 								return;
 							}
 							var errors = responseObject.getErrors();
@@ -162,7 +165,7 @@ $(document).ready(function () {
 			//if (container.css('display') == "none") {
 			//	container.css('display', "block");
 			//}
-			var container = $('#checkout_payment .errorText');
+			var container = $('.main-inside .alert-danger');
 			switch (type) {
 				case 'APPEND':
 					$(container).append('<p>' + message + '</p>');
@@ -215,8 +218,8 @@ $(document).ready(function () {
 		},
 
 		handleIframeClick: function (event) {
-			$('div.payment_item').removeClass('module_option_checked');
-			$('#' + event.data.parentId).closest( "div.payment_item" ).addClass('module_option_checked');
+			$('li.list-group-item').removeClass('active');
+			$('#' + event.data.parentId).closest( "li.list-group-item" ).addClass('active');
 
 			if (event.data.parentId == 'wcsIframeContainerwcs_ccard') {
 				$("input[value='wcs_ccard']").prop("checked", true);

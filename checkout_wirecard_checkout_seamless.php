@@ -97,6 +97,7 @@ else
 }
 
 $smarty->assign('LIGHTBOX', gm_get_conf('GM_LIGHTBOX_CHECKOUT'));
+$smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 $smarty->caching = 0;
 $t_main_content  = $smarty->fetch(CURRENT_TEMPLATE . '/module/checkout_wirecard_checkout_seamless.html');
 
