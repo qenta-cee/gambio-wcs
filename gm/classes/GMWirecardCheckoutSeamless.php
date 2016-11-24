@@ -37,7 +37,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 	/**
 	 * @var string
 	 */
-	protected $_pluginversion = '1.0.3';
+	protected $_pluginversion = '1.1.0';
 
 	/**
 	 * config parameters
@@ -653,6 +653,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 
 		$total = isset($order->info['pp_total']) ? $order->info['pp_total'] : $total = $order->info['total'];
 		$decimalPlaces = $xtPrice->get_decimal_places($order->info['currency']);
+        $customerMail = (string) $order->customer['email_address'];
 		$init->setAmount(number_format($total, $decimalPlaces, '.', ''))
 			->setCurrency($order->info['currency'])
 			->setPaymentType($paymentType)
@@ -662,6 +663,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 			->setCancelUrl($returnUrl)
 			->setFailureUrl($returnUrl)
 			->setServiceUrl($this->getConfigValue('service_url'))
+            ->createConsumerMerchantCrmId($customerMail)
 			->setConsumerData($this->getConsumerData($order, $paymentType));
 
 		$init->orders_id = $order->info['orders_id'];
