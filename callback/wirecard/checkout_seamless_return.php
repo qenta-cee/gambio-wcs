@@ -49,9 +49,12 @@ if(isset($_SESSION['tmp_oID']) && strlen($_SESSION['tmp_oID']))
 	switch($paymentState)
 	{
 		case WirecardCEE_QMore_ReturnFactory::STATE_SUCCESS:
-		case WirecardCEE_QMore_ReturnFactory::STATE_PENDING:
 			$coo_checkout_process->proceed();
 			$t_redirect_url = $coo_checkout_process->get_redirect_url();
+			break;
+		case WirecardCEE_QMore_ReturnFactory::STATE_PENDING:
+			$_SESSION['cart']->reset(true);
+			$t_redirect_url = xtc_href_link('checkout_wirecard_checkout_seamless.php', 'return=1', 'SSL');
 			break;
 		default:
 			$t_redirect_url = xtc_href_link('checkout_wirecard_checkout_seamless.php', 'return=1', 'SSL');

@@ -37,7 +37,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 	/**
 	 * @var string
 	 */
-	protected $_pluginversion = '1.1.0';
+	protected $_pluginversion = '1.2.0';
 
 	/**
 	 * config parameters
@@ -477,7 +477,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 			switch ($cfg['validator'])
 			{
 			case 'url':
-				if (filter_var($p_value, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED) === false)
+				if (filter_var($p_value, FILTER_VALIDATE_URL) === false)
 				{
 					throw new GMWirecardCheckoutSeamlessException(sprintf($this->getText('param_invalid'),
 						$this->getText($p_key)));
@@ -560,7 +560,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 				$dataStorageInit->setIframeCssUrl(trim($this->getConfigValue('iframe_css_url')));
 			}
 
-			$dataStorageInit->setCreditCardCardholderNameField($this->getConfigValue('creditcard_showcardholder'));
+			$dataStorageInit->setCreditCardShowCardholderNameField($this->getConfigValue('creditcard_showcardholder'));
 			$dataStorageInit->setCreditCardShowCvcField($this->getConfigValue('creditcard_showcvc'));
 			$dataStorageInit->setCreditCardShowIssueDateField($this->getConfigValue('creditcard_showissuedate'));
 			$dataStorageInit->setCreditCardShowIssueNumberField($this->getConfigValue('creditcard_showissuenumber'));
@@ -623,7 +623,6 @@ class GMWirecardCheckoutSeamless_ORIGIN
 
 		$init->setPluginVersion($this->_getPluginVersion());
 
-		$init->setConfirmUrl(xtc_href_link('callback/wirecard/checkout_seamless_confirm.php', '', 'SSL', false));
 		$init->setOrderReference(sprintf('%010d', $order->info['orders_id']));
 
 		if ($this->getConfigValue('send_confirm_email'))
@@ -651,6 +650,9 @@ class GMWirecardCheckoutSeamless_ORIGIN
 		$returnUrl = xtc_href_link('callback/wirecard/checkout_seamless_return.php',
 			'fboOID=' . $order->info['orders_id'], 'SSL', false);
 
+
+        $confirmUrl = xtc_href_link('callback/wirecard/checkout_seamless_confirm.php', '', 'SSL', false);
+
 		$total = isset($order->info['pp_total']) ? $order->info['pp_total'] : $total = $order->info['total'];
 		$decimalPlaces = $xtPrice->get_decimal_places($order->info['currency']);
         $customerMail = (string) $order->customer['email_address'];
@@ -662,6 +664,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 			->setPendingUrl($returnUrl)
 			->setCancelUrl($returnUrl)
 			->setFailureUrl($returnUrl)
+            ->setConfirmUrl($confirmUrl)
 			->setServiceUrl($this->getConfigValue('service_url'))
             ->createConsumerMerchantCrmId($customerMail)
 			->setConsumerData($this->getConsumerData($order, $paymentType));
@@ -734,7 +737,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 
 		$order_status = $this->_getOrdersStatus($orders_id);
 		if($order_status !== null)	{
-			if ($order_status != $this->getConfigValue('status_init') && $order_status != $this->getConfigValue('status_pending')) {
+            if ($order_status == $this->getConfigValue('status_success') || $order_status == $this->getConfigValue('status_error')) {
 				$this->log(__METHOD__ . 'Order Workflow manipulation', LOG_WARNING);
 
 				return WirecardCEE_QMore_ReturnFactory::generateConfirmResponseString('Validation error: invalid response');
