@@ -23,8 +23,8 @@
  */
 
 require_once 'includes/application_top.php';
-require_once(DIR_FS_ADMIN . 'gm/classes/GMModulesManager.php');
-require_once(DIR_FS_ADMIN . 'gm/gm_modules/gm_modules_structure.php');
+require_once(DIR_FS_ADMIN . 'includes/gm/classes/GMModulesManager.php');
+require_once(DIR_FS_ADMIN . 'includes/gm/gm_modules/gm_modules_structure.php');
 require_once DIR_FS_CATALOG .'/includes/classes/WirecardCheckoutSeamless_Helper.php';
 
 if (WirecardCheckoutSeamless_Helper::checkVersionBelow(25)) {

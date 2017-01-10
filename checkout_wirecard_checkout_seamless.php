@@ -61,6 +61,11 @@ if(isset($_GET['return']))
 				$smarty->assign('CHECKOUT_CONTENT', $seamless->getText('checkout_noconfirm_content'));
 				break;
 
+            case WirecardCEE_QMore_ReturnFactory::STATE_PENDING:
+                $smarty->assign('CHECKOUT_TITLE', $seamless->getText('payment_pending_title'));
+                $smarty->assign('CHECKOUT_CONTENT', $seamless->getText('payment_pending_info'));
+                break;
+
 			case WirecardCEE_QMore_ReturnFactory::STATE_CANCEL:
 				$smarty->assign('CHECKOUT_TITLE', $seamless->getText('checkout_cancel_title'));
 				$smarty->assign('CHECKOUT_CONTENT', $seamless->getText('checkout_cancel_content'));
