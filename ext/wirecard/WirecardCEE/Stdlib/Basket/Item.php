@@ -40,245 +40,149 @@
 class WirecardCEE_Stdlib_Basket_Item
 {
 
-    /**
-     * Constants - text holders
-     *
-     * @var string
-     */
-    const ITEM_ARTICLE_NUMBER    = 'articleNumber';
-    const ITEM_QUANTITY          = 'quantity';
-    const ITEM_UNIT_GROSS_AMOUNT = 'unitGrossAmount';
-    const ITEM_UNIT_NET_AMOUNT   = 'unitNetAmount';
-    const ITEM_DESCRIPTION       = 'description';
-    const ITEM_NAME              = 'name';
-    const ITEM_IMAGE_URL         = 'imageUrl';
-    const ITEM_UNIT_TAX_AMOUNT   = 'unitTaxAmount';
-    const ITEM_UNIT_TAX_RATE     = 'unitTaxRate';
+	/**
+	 * Constants - text holders
+	 *
+	 * @var string
+	 */
+	const ITEM_ARTICLE_NUMBER = 'articleNumber';
+	const ITEM_UNIT_PRICE = 'unitPrice';
+	const ITEM_DESCRIPTION = 'description';
+	const ITEM_TAX = 'tax';
 
-    /**
-     * Data holder
-     *
-     * @var Array
-     */
-    protected $_itemData;
+	/**
+	 * Data holder
+	 *
+	 * @var Array
+	 */
+	protected $_itemData;
 
-    /**
-     * Constructor
-     *
-     * @param mixed(string|integer) optional $mArticleNumber
-     */
-    public function __construct($mArticleNumber = null)
-    {
-        if (!is_null($mArticleNumber)) {
-            $this->setArticleNumber($mArticleNumber);
-        }
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param mixed(string|integer) optional $mArticleNumber
+	 */
+	public function __construct($mArticleNumber = null)
+	{
+		if (!is_null($mArticleNumber)) {
+			$this->setArticleNumber($mArticleNumber);
+		}
+	}
 
-    /**
-     * Sets the item tax amount
-     *
-     * @param mixed(integer|float) $fTaxAmount
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setUnitTaxAmount($fTaxAmount)
-    {
-        $this->_setField(self::ITEM_UNIT_TAX_AMOUNT, $fTaxAmount);
-        return $this;
-    }
+	/**
+	 * Sets the item tax (amount not percentage!)
+	 *
+	 * @param integer /float
+	 */
+	public function setTax($fTax)
+	{
+		$this->_setField(self::ITEM_TAX, $fTax);
 
-    /**
-     * Returns the tax amount
-     *
-     * @return mixed(integer|float)
-     */
-    public function getUnitTaxAmount()
-    {
-        return $this->_itemData[self::ITEM_UNIT_TAX_AMOUNT];
-    }
+		return $this;
+	}
 
-    /**
-     * Sets the item tax rate
-     *
-     * @param mixed(integer|float) $fTaxRate
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setUnitTaxRate($fTaxRate)
-    {
-        $this->_setField(self::ITEM_UNIT_TAX_RATE, $fTaxRate);
-        return $this;
-    }
+	/**
+	 * Returns the tax
+	 *
+	 * @return multitype:
+	 */
+	public function getTax()
+	{
+		return $this->_itemData[self::ITEM_TAX];
+	}
 
-    /**
-     * Returns the tax rate
-     *
-     * @return mixed(integer|float)
-     */
-    public function getUnitTaxRate()
-    {
-        return $this->_itemData[self::ITEM_UNIT_TAX_RATE];
-    }
+	/**
+	 * Sets the article number for an item
+	 *
+	 * @param mixed(string|integer) $mArticleNumber
+	 *
+	 * @return WirecardCEE_Stdlib_Basket_Item
+	 */
+	public function setArticleNumber($mArticleNumber)
+	{
+		$this->_setField(self::ITEM_ARTICLE_NUMBER, $mArticleNumber);
 
-    /**
-     * Sets the article number for an item
-     *
-     * @param mixed(string|integer) $mArticleNumber
-     *
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setArticleNumber($mArticleNumber)
-    {
-        $this->_setField(self::ITEM_ARTICLE_NUMBER, $mArticleNumber);
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Returns the article number of an item
+	 *
+	 * @return mixed(string|integer)
+	 */
+	public function getArticleNumber()
+	{
+		return $this->_itemData[self::ITEM_ARTICLE_NUMBER];
+	}
 
-    /**
-     * Returns the article number of an item
-     *
-     * @return mixed(string|integer)
-     */
-    public function getArticleNumber()
-    {
-        return $this->_itemData[self::ITEM_ARTICLE_NUMBER];
-    }
+	/**
+	 * Sets the price for a unit
+	 *
+	 * @param mixed(integer|float) $fPrice
+	 *
+	 * @return WirecardCEE_Stdlib_Basket_Item
+	 */
+	public function setUnitPrice($fPrice)
+	{
+		$this->_setField(self::ITEM_UNIT_PRICE, $fPrice);
 
-    /**
-     * Sets the gross amount for a unit
-     *
-     * @param mixed(integer|float) $fAmount
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setUnitGrossAmount($fAmount)
-    {
-        $this->_setField(self::ITEM_UNIT_GROSS_AMOUNT, $fAmount);
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Returns the gross amount for a unit
-     *
-     * @return mixed(integer|float)
-     */
-    public function getUnitGrossAmount()
-    {
-        return $this->_itemData[self::ITEM_UNIT_GROSS_AMOUNT];
-    }
+	/**
+	 * Returns the price for a unit
+	 *
+	 * @return mixed(integer|float)
+	 */
+	public function getUnitPrice()
+	{
+		return $this->_itemData[self::ITEM_UNIT_PRICE];
+	}
 
-    /**
-     * Sets the net amount for a unit
-     *
-     * @param mixed(integer|float) $fAmount
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setUnitNetAmount($fAmount)
-    {
-        $this->_setField(self::ITEM_UNIT_NET_AMOUNT, $fAmount);
-        return $this;
-    }
+	/**
+	 * Sets the item description
+	 *
+	 * @param string $sDescription
+	 *
+	 * @return WirecardCEE_Stdlib_Basket_Item
+	 */
+	public function setDescription($sDescription)
+	{
+		$this->_setField(self::ITEM_DESCRIPTION, (string) $sDescription);
 
-    /**
-     * Returns the net amount for a unit
-     *
-     * @return mixed(integer|float)
-     */
-    public function getUnitNetAmount()
-    {
-        return $this->_itemData[self::ITEM_UNIT_NET_AMOUNT];
-    }
+		return $this;
+	}
 
-    /**
-     * Sets the item description
-     *
-     * @param string $sDescription
-     *
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setDescription($sDescription)
-    {
-        $this->_setField(self::ITEM_DESCRIPTION, (string) $sDescription);
+	/**
+	 * Retuns the item description
+	 *
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return (string) $this->_itemData[self::ITEM_DESCRIPTION];
+	}
 
-        return $this;
-    }
+	/**
+	 * Destructor
+	 */
+	public function __destruct()
+	{
+		unset( $this );
+	}
 
-    /**
-     * Returns the item description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        if(array_key_exists(self::ITEM_DESCRIPTION, $this->_itemData)) {
-            return (string) $this->_itemData[self::ITEM_DESCRIPTION];
-        }
-        return null;
-    }
+	/***************************************
+	 *         PROTECTED METHODS           *
+	 ***************************************/
 
-    /**
-     * Sets the item name
-     *
-     * @param string $sName
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setName($sName) {
-        $this->_setField(self::ITEM_NAME, (string) $sName);
-        return $this;
-    }
-
-    /**
-     * Returns the item name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return (string) $this->_itemData[self::ITEM_NAME];
-    }
-
-
-    /**
-     * Sets the item image url
-     *
-     * @param string $sImageUrl
-     * @return WirecardCEE_Stdlib_Basket_Item
-     */
-    public function setImageUrl($sImageUrl) {
-        $this->_setField(self::ITEM_IMAGE_URL, (string) $sImageUrl);
-        return $this;
-    }
-
-    /**
-     * Returns the item image url
-     *
-     * @return string
-     */
-    public function getImageUrl()
-    {
-        if(array_key_exists(self::ITEM_IMAGE_URL, $this->_itemData)) {
-            return (string) $this->_itemData[self::ITEM_IMAGE_URL];
-        }
-        return null;
-    }
-
-    /**
-     * Destructor
-     */
-    public function __destruct()
-    {
-        unset( $this );
-    }
-
-    /***************************************
-     *         PROTECTED METHODS           *
-     ***************************************/
-
-    /**
-     * Field setter
-     *
-     * @param string $sName
-     * @param mixed $mValue
-     */
-    protected function _setField($sName, $mValue)
-    {
-        $this->_itemData[$sName] = $mValue;
-    }
+	/**
+	 * Field setter
+	 *
+	 * @param string $sName
+	 * @param mixed $mValue
+	 */
+	protected function _setField($sName, $mValue)
+	{
+		$this->_itemData[$sName] = $mValue;
+	}
 }
