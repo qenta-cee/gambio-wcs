@@ -669,6 +669,10 @@ class GMWirecardCheckoutSeamless_ORIGIN
             ->createConsumerMerchantCrmId($customerMail)
 			->setConsumerData($this->getConsumerData($order, $paymentType));
 
+        if (isset($_SESSION['wcs_consumer_device_id'])) {
+            $init->consumerDeviceId = $_SESSION['wcs_consumer_device_id'];
+        }
+
 		$init->orders_id = $order->info['orders_id'];
 
 		if ($this->getConfigValue('send_basket')

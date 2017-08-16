@@ -174,7 +174,36 @@ class WirecardCheckoutSeamless_ORIGIN
 	 */
 	public function process_button()
 	{
-		return false;
+	    $customer_id = function(){
+            $configtype = gm_get_conf( 'WCS_configtype');
+            switch($configtype){
+                case 'test_no3d' : return 'D200411';
+                case 'test_3d' : return 'D200411';
+                case 'demo' : return 'D200001';
+            }
+            return gm_get_conf('WCS_CUSTOMER_ID');
+        };
+        $customer_id = $customer_id();
+
+	    $consumerDeviceId = md5( $customer_id . "_" . microtime());
+	    if(isset($_SESSION['wcs_consumer_device_id'])){
+	        $consumerDeviceId = $_SESSION['wcs_consumer_device_id'];
+        } else {
+            $_SESSION['wcs_consumer_device_id'] = $consumerDeviceId;
+        }
+
+		return "<script language='JavaScript'>
+                var di = {t:'" . $consumerDeviceId . "',v:'WDWL',l:'Checkout'};
+              </script>
+              <script type='text/javascript' src='//d.ratepay.com/" . $consumerDeviceId . "/di.js'></script>
+              <noscript>
+                <link rel='stylesheet' type='text/css' href='//d.ratepay.com/di.css?t=" . $consumerDeviceId . "&v=WDWL&l=Checkout'>
+              </noscript>
+              <object type='application/x-shockwave-flash' data='//d.ratepay.com/WDWL/c.swf' width='0' height='0'>
+                <param name='movie' value='//d.ratepay.com/WDWL/c.swf' />
+                <param name='flashvars' value='t=" . $consumerDeviceId . "&v=WDWL'/>
+                <param name='AllowScriptAccess' value='always'/>
+              </object>";
 	}
 
 
@@ -220,6 +249,8 @@ class WirecardCheckoutSeamless_ORIGIN
 		             TABLE_PAYMENT_WCS, $orders_id, 'INIT', $this->_paymenttype,
 		             xtc_db_input(json_encode($init->getRequestData())));
 		xtc_db_query($q);
+
+        unset($_SESSION['wcs_consumer_device_id']);
 
 		require 'checkout_wirecard_checkout_seamless.php';
 
