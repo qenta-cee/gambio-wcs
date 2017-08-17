@@ -707,9 +707,6 @@ class GMWirecardCheckoutSeamless_ORIGIN
 			$basket->addItem($item);
 
             $init->setBasket($basket);
-
-			    print_r($basket);
-                die;
 		}
 
 		$init->generateCustomerStatement($this->getConfigValue('shop_name'));
