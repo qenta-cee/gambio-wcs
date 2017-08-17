@@ -76,14 +76,14 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 			'configuration_value' => ''
 		);
         $config['EQUAL_ADDRESS'] = array(
-            'configuration_value' => '',
+            'configuration_value' => 'on',
             'set_function'        => "wcs_cfg_installment_checkbox("
         );
 		$config['MIN_AMOUNT'] = array(
-			'configuration_value' => ''
+			'configuration_value' => '150'
 		);
 		$config['MAX_AMOUNT'] = array(
-			'configuration_value' => ''
+			'configuration_value' => '3500'
 		);
 
 		return $config;

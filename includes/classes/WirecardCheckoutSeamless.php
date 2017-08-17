@@ -655,8 +655,15 @@ function wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key = '')
  */
 function wcs_cfg_invoice_checkbox()
 {
-    $name = 'configuration[MODULE_PAYMENT_WCS_INVOICE_EQUAL_ADDRESS]';
-    return xtc_draw_checkbox_field($name);
+    $name = 'MODULE_PAYMENT_WCS_INVOICE_EQUAL_ADDRESS';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
 }
 
 /**
@@ -667,8 +674,15 @@ function wcs_cfg_invoice_checkbox()
  */
 function wcs_cfg_installment_checkbox()
 {
-    $name = 'configuration[MODULE_PAYMENT_WCS_INSTALLMENT_EQUAL_ADDRESS]';
-    return xtc_draw_checkbox_field($name);
+    $name = 'MODULE_PAYMENT_WCS_INSTALLMENT_EQUAL_ADDRESS';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
 }
 
 /**

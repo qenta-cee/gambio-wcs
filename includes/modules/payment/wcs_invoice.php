@@ -76,14 +76,14 @@ class wcs_invoice_ORIGIN extends WirecardCheckoutSeamless
 			'configuration_value' => ''
 		);
         $config['EQUAL_ADDRESS'] = array(
-            'configuration_value' => '',
+            'configuration_value' => 'on',
             'set_function'        => "wcs_cfg_invoice_checkbox("
         );
 		$config['MIN_AMOUNT'] = array(
-			'configuration_value' => ''
+			'configuration_value' => '10'
 		);
 		$config['MAX_AMOUNT'] = array(
-			'configuration_value' => ''
+			'configuration_value' => '3500'
 		);
 
 		return $config;
