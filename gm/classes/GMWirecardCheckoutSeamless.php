@@ -683,31 +683,33 @@ class GMWirecardCheckoutSeamless_ORIGIN
 		)
 		{
 			$basket = new WirecardCEE_Stdlib_Basket();
-			$basket->setCurrency($order->info['currency']);
 
 			foreach ($order->products as $idx => $p)
 			{
-				$price = $xtPrice->xtcRemoveTax($p['price'], $p['tax']);
-				$item = new WirecardCEE_Stdlib_Basket_Item();
-				$item->setUnitPrice(number_format($price, $decimalPlaces, '.', ''));
-				$item->setDescription($p['name']);
-				$item->setArticleNumber($p['model']);
-				$vat = $p['final_price'] - round($price, 2) * (int)$p['qty'];
-				$item->setTax(number_format($vat, $decimalPlaces, '.', ''));
+			    $item = new WirecardCEE_Stdlib_Basket_Item($p['model']);
+                $item->setName($p['name'])
+                    ->setDescription($p['name'])
+                    ->setUnitNetAmount(number_format($xtPrice->xtcRemoveTax($p['price'], $p['tax']), $decimalPlaces, '.', ''))
+                    ->setUnitGrossAmount(number_format($p['price'], $decimalPlaces, '.', ''))
+                    ->setUnitTaxAmount(number_format($xtPrice->xtcGetTax($p['final_price'], $p['tax']), $decimalPlaces, '.', ''))
+                    ->setUnitTaxRate(number_format($p['tax'], $decimalPlaces, '.', ''));
+
 				$basket->addItem($item, (int)$p['qty']);
 			}
+			$item = new WirecardCEE_Stdlib_Basket_Item('shipping');
+            $item->setName($order->info['shipping_method'])
+                ->setDescription($order->info['shipping_method'])
+                ->setUnitNetAmount(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''))
+                ->setUnitGrossAmount(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''))
+                ->setUnitTaxAmount(0)
+                ->setUnitTaxRate(0);
 
-			$item = new WirecardCEE_Stdlib_Basket_Item();
-			$item->setArticleNumber('shipping');
-			$item->setUnitPrice(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''));
-			$item->setTax(0);
-			$item->setDescription($order->info['shipping_method']);
 			$basket->addItem($item);
 
-			foreach ($basket->__toArray() as $k => $v)
-			{
-				$init->$k = $v;
-			}
+            $init->setBasket($basket);
+
+			    print_r($basket);
+                die;
 		}
 
 		$init->generateCustomerStatement($this->getConfigValue('shop_name'));
