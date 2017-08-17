@@ -44,8 +44,6 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 		define("MODULE_PAYMENT_{$c}_MAX_AMOUNT_DESC", '');
 		define("MODULE_PAYMENT_{$c}_PROVIDER_TITLE", $this->_seamless->getText('invoiceinstallment_provider'));
 		define("MODULE_PAYMENT_{$c}_PROVIDER_DESC", '');
-		define("MODULE_PAYMENT_{$c}_MIN_AGE_TITLE", $this->_seamless->getText('min_age'));
-		define("MODULE_PAYMENT_{$c}_MIN_AGE_DESC", $this->_seamless->getText('min_age_desc'));
 		define("MODULE_PAYMENT_{$c}_CURRENCIES_TITLE", $this->_seamless->getText('currencies'));
 		define("MODULE_PAYMENT_{$c}_CURRENCIES_DESC", $this->_seamless->getText('currencies_desc'));
 	}
@@ -74,9 +72,6 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 		);
 		$config['CURRENCIES'] = array(
 			'configuration_value' => ''
-		);
-		$config['MIN_AGE']    = array(
-			'configuration_value' => '18'
 		);
 		$config['MIN_AMOUNT'] = array(
 			'configuration_value' => ''

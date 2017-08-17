@@ -550,27 +550,15 @@ class WirecardCheckoutSeamless_ORIGIN
 		global $order, $xtPrice;
 
 		$c          = strtoupper($this->code);
-		$consumerID = xtc_session_is_registered('customer_id') ? $_SESSION['customer_id'] : "";
 
 		$currency = $order->info['currency'];
 		$total    = $order->info['total'];
 		$amount   = round($xtPrice->xtcCalculateCurrEx($total, $currency), $xtPrice->get_decimal_places($currency));
 
-		$sql = 'SELECT (COUNT(*) > 0) as cnt FROM ' . TABLE_CUSTOMERS
-		       . ' WHERE DATEDIFF(NOW(), customers_dob) > 6574 AND customers_id="' . $consumerID . '"';
-
-		$result = xtc_db_fetch_array(xtc_db_query($sql));
-		if($result === false)
-		{
-			return false;
-		}
-
 		$maxAmount    = $this->constant("MODULE_PAYMENT_{$c}_MAX_AMOUNT");
-		$ageCheck     = (bool)$result['cnt'];
 		$country_code = $order->billing['country']['iso_code_2'];
 
-		return ($ageCheck
-		        && ($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
+		return (($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
 		            && (!strlen($maxAmount) || $amount <= $maxAmount))
 		        && ($currency == 'EUR')
 		        && (in_array($country_code, Array('AT', 'DE', 'CH')))
@@ -587,34 +575,19 @@ class WirecardCheckoutSeamless_ORIGIN
 		global $order, $xtPrice;
 
 		$c          = strtoupper($this->code);
-		$consumerID = xtc_session_is_registered('customer_id') ? $_SESSION['customer_id'] : "";
 
 		$currency = $order->info['currency'];
 		$total    = $order->info['total'];
 		$amount   = round($xtPrice->xtcCalculateCurrEx($total, $currency), $xtPrice->get_decimal_places($currency));
 
-		$sql = 'SELECT customers_dob FROM ' . TABLE_CUSTOMERS . ' WHERE customers_id="' . $consumerID . '"';
-
-		$minAge     = (int)$this->constant("MODULE_PAYMENT_{$c}_MIN_AGE");
 		$currencies = explode(',', $this->constant("MODULE_PAYMENT_{$c}_CURRENCIES"));
 		$currencies = array_map(function ($c)
 		{
 			return strtoupper(trim($c));
 		}, $currencies);
 
-		$result = xtc_db_fetch_array(xtc_db_query($sql));
-		if($result === false)
-		{
-			return false;
-		}
-
 		$maxAmount = $this->constant("MODULE_PAYMENT_{$c}_MAX_AMOUNT");
-		$birthDate = new DateTime($result['customers_dob']);
-		$diff      = $birthDate->diff(new DateTime());
-		if($diff->y < $minAge)
-		{
-			return false;
-		}
+
 
 		return (($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
 		         && (!strlen($maxAmount) || $amount <= $maxAmount))
@@ -667,6 +640,12 @@ function wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key = '')
 	$providers = WirecardCheckoutSeamless_ORIGIN::$invoiceinstallment_provider;
 
 	return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
+}
+
+function wcs_cfg_checkbox($p_key = '')
+{
+    $name = ($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value';
+    return xtc_draw_checkbox_field($name);
 }
 
 /**
