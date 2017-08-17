@@ -42,7 +42,7 @@ class wcs_eps_ORIGIN extends WirecardCheckoutSeamless
 			return false;
 		}
 
-		$field = '<select class="wcs_eps input-select" name="wcs_financialinstitution_eps">';
+		$field = '<select class="wcs_eps input-select form-control" name="wcs_financialinstitution_eps">';
 
 		foreach(WirecardCEE_QMore_PaymentType::getFinancialInstitutions($this->_paymenttype) as $value => $name)
 		{

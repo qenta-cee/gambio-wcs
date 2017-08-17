@@ -166,6 +166,7 @@ $t_language_text_section_content_array = array(
 	'currency'                        => 'Währung',
 	'currencies'                      => 'Erlaubte Währungen',
 	'currencies_desc'                 => 'Erlaubte Währungen RatePay (e.g. EUR,CHF)',
+    'equal_address'                   => 'Rechnungsadresse und Versandadresse müssen übereinstimmen',
 	'customergroup'                   => 'Kundengruppe',
 	'customergroup_desc'              => 'Zahlungsmittel ist nur für diese Kundengruppe verfügbar',
 	'transfer_type'                   => 'Typ',

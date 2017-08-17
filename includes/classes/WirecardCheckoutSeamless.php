@@ -558,11 +558,14 @@ class WirecardCheckoutSeamless_ORIGIN
 		$maxAmount    = $this->constant("MODULE_PAYMENT_{$c}_MAX_AMOUNT");
 		$country_code = $order->billing['country']['iso_code_2'];
 
+        if ($this->constant("MODULE_PAYMENT_{$c}_EQUAL_ADDRESS") === "on" && $order->delivery !== $order->billing) {
+            return false;
+        }
+
 		return (($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
 		            && (!strlen($maxAmount) || $amount <= $maxAmount))
 		        && ($currency == 'EUR')
-		        && (in_array($country_code, Array('AT', 'DE', 'CH')))
-		        && ($order->delivery === $order->billing));
+		        && (in_array($country_code, Array('AT', 'DE', 'CH'))));
 	}
 
 
@@ -588,11 +591,13 @@ class WirecardCheckoutSeamless_ORIGIN
 
 		$maxAmount = $this->constant("MODULE_PAYMENT_{$c}_MAX_AMOUNT");
 
+        if ($this->constant("MODULE_PAYMENT_{$c}_EQUAL_ADDRESS") === "on" && $order->delivery !== $order->billing) {
+            return false;
+        }
 
 		return (($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
 		         && (!strlen($maxAmount) || $amount <= $maxAmount))
-		        && in_array($currency, $currencies)
-		        && $order->delivery === $order->billing);
+		        && in_array($currency, $currencies));
 	}
 
 
@@ -642,9 +647,27 @@ function wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key = '')
 	return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
 }
 
-function wcs_cfg_checkbox($p_key = '')
+/**
+ * checkbox for invoice config
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_invoice_checkbox()
 {
-    $name = ($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value';
+    $name = 'configuration[MODULE_PAYMENT_WCS_INVOICE_EQUAL_ADDRESS]';
+    return xtc_draw_checkbox_field($name);
+}
+
+/**
+ * checkbox for installment config
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_installment_checkbox()
+{
+    $name = 'configuration[MODULE_PAYMENT_WCS_INSTALLMENT_EQUAL_ADDRESS]';
     return xtc_draw_checkbox_field($name);
 }
 
