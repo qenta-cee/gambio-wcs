@@ -31,7 +31,7 @@ class wcs_tatrapay_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 5;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::TATRAPAY;
-	protected $_logoFilename     = 'tatrapay.jpg';
+	protected $_logoFilename     = 'tatrapay.png';
 }
 
 MainFactory::load_origin_class('wcs_tatrapay');

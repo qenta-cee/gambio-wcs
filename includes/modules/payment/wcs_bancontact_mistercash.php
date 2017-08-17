@@ -31,7 +31,7 @@ class wcs_bancontact_mistercash_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 10;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::BMC;
-	protected $_logoFilename     = 'bancontact_mistercash.jpg';
+	protected $_logoFilename     = 'bancontact.png';
 }
 
 MainFactory::load_origin_class('wcs_bancontact_mistercash');

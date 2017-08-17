@@ -31,7 +31,7 @@ class wcs_invoice_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 23;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::INVOICE;
-	protected $_logoFilename     = 'invoice.jpg';
+	protected $_logoFilename     = 'invoice.png';
 
 
 	public function __construct()

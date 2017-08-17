@@ -31,7 +31,7 @@ class wcs_eps_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 2;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::EPS;
-	protected $_logoFilename     = 'eps.jpg';
+	protected $_logoFilename     = 'eps.png';
 
 
 	function selection()

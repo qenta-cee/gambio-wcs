@@ -31,7 +31,7 @@ class wcs_psc_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 17;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::PSC;
-	protected $_logoFilename     = 'paysafecard.jpg';
+	protected $_logoFilename     = 'paysafecard.png';
 }
 
 MainFactory::load_origin_class('wcs_psc');

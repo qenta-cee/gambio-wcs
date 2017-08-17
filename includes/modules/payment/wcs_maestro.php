@@ -32,7 +32,7 @@ class wcs_maestro_ORIGIN extends wcs_ccard
 {
 	protected $_defaultSortOrder = 1;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::MAESTRO;
-	protected $_logoFilename     = 'maestro_secure_code.jpg';
+	protected $_logoFilename     = 'maestro_secure_code.png';
 }
 
 MainFactory::load_origin_class('wcs_maestro');

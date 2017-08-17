@@ -31,7 +31,7 @@ class wcs_quick_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 18;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::QUICK;
-	protected $_logoFilename     = 'quick.jpg';
+	protected $_logoFilename     = 'quick.png';
 }
 
 MainFactory::load_origin_class('wcs_quick');

@@ -31,7 +31,7 @@ class wcs_giropay_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 4;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::GIROPAY;
-	protected $_logoFilename     = 'giropay.jpg';
+	protected $_logoFilename     = 'giropay.png';
 
 
 	function selection()
