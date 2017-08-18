@@ -535,6 +535,9 @@ class WirecardCheckoutSeamless_ORIGIN
 			case 'RatePay':
 				return $this->ratePayPreCheck();
 
+            case 'Wirecard':
+				return $this->ratePayPreCheck();
+
 			default:
 				return false;
 		}
@@ -649,6 +652,7 @@ function wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key = '')
 	$name = (($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value');
 
 	$providers = WirecardCheckoutSeamless_ORIGIN::$invoiceinstallment_provider;
+    array_push($providers, array('id' => 'Wirecard', 'text' => 'Wirecard'));
 
 	return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
 }
@@ -701,7 +705,11 @@ function wcs_cfg_installment_checkbox()
  */
 function wcs_cfg_pull_down_installment_provider($p_provider_id, $p_key = '')
 {
-	return wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key);
+    $name = (($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value');
+
+    $providers = WirecardCheckoutSeamless_ORIGIN::$invoiceinstallment_provider;
+
+    return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
 }
 
 /**
