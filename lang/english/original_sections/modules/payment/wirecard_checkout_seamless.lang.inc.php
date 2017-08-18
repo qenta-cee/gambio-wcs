@@ -165,7 +165,6 @@ $t_language_text_section_content_array = array(
 	'invoiceinstallment_provider'     => 'Financial service provider',
 	'currency'                        => 'Currency',
 	'currencies'                      => 'Allowed currencies',
-	'currencies_desc'                 => 'Allowed currencies RatePay (e.g. EUR, CHF)',
     'equal_address'                   => 'Billing/shipping address must be identical',
 	'customergroup'                   => 'Customer group',
 	'customergroup_desc'              => 'Payment method is available for this customer group only',

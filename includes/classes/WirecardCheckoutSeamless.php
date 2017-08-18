@@ -555,6 +555,12 @@ class WirecardCheckoutSeamless_ORIGIN
 		$total    = $order->info['total'];
 		$amount   = round($xtPrice->xtcCalculateCurrEx($total, $currency), $xtPrice->get_decimal_places($currency));
 
+        $currencies = explode(',', $this->constant("MODULE_PAYMENT_{$c}_CURRENCIES"));
+        $currencies = array_map(function ($c)
+        {
+            return strtoupper(trim($c));
+        }, $currencies);
+
 		$maxAmount    = $this->constant("MODULE_PAYMENT_{$c}_MAX_AMOUNT");
 		$country_code = $order->billing['country']['iso_code_2'];
 
@@ -564,7 +570,7 @@ class WirecardCheckoutSeamless_ORIGIN
 
 		return (($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
 		            && (!strlen($maxAmount) || $amount <= $maxAmount))
-		        && ($currency == 'EUR')
+		        && in_array($currency, $currencies)
 		        && (in_array($country_code, Array('AT', 'DE', 'CH'))));
 	}
 
@@ -577,7 +583,7 @@ class WirecardCheckoutSeamless_ORIGIN
 	{
 		global $order, $xtPrice;
 
-		$c          = strtoupper($this->code);
+		$c        = strtoupper($this->code);
 
 		$currency = $order->info['currency'];
 		$total    = $order->info['total'];
