@@ -164,7 +164,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
                 : (date("Y") - $year));
 
             if ($age < 18) {
-                $_SESSION['gm_error_message'] = $this->payone->get_text('birthdate_too_young');
+                $_SESSION['gm_error_message'] = $this->_seamless->getText('birthdate_too_young');
                 xtc_redirect(GM_HTTP_SERVER . DIR_WS_CATALOG . 'checkout_payment.php');
                 die;
             }
