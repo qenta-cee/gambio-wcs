@@ -696,6 +696,44 @@ function wcs_cfg_installment_checkbox()
 }
 
 /**
+ * checkbox for invoice payolution terms
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_invoice_terms_checkbox()
+{
+    $name = 'MODULE_PAYMENT_WCS_INVOICE_PAYOLUTION_CONSENT';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
+}
+
+/**
+ * checkbox for installment payolution terms
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_installment_terms_checkbox()
+{
+    $name = 'MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
+}
+
+/**
  * installment option list for module config
  *
  * @param string $provider_id

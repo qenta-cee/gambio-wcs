@@ -48,6 +48,10 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
         define("MODULE_PAYMENT_{$c}_EQUAL_ADDRESS_DESC", '');
 		define("MODULE_PAYMENT_{$c}_CURRENCIES_TITLE", $this->_seamless->getText('currencies'));
 		define("MODULE_PAYMENT_{$c}_CURRENCIES_DESC", '');
+        define("MODULE_PAYMENT_{$c}_PAYOLUTION_MID_TITLE", $this->_seamless->getText('payolution_mid'));
+        define("MODULE_PAYMENT_{$c}_PAYOLUTION_MID_DESC", $this->_seamless->getText('payolution_mid_desc'));
+        define("MODULE_PAYMENT_{$c}_PAYOLUTION_CONSENT_TITLE", $this->_seamless->getText('payolution_terms'));
+        define("MODULE_PAYMENT_{$c}_PAYOLUTION_CONSENT_DESC", $this->_seamless->getText('payolution_terms_desc'));
 	}
 
 
@@ -145,8 +149,29 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
             'title' => $this->_seamless->getText('birthdate'),
             'field' => $field
         );
+        if (MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT == "on" && MODULE_PAYMENT_WCS_INSTALLMENT_PROVIDER == 'Payolution') {
+            $content['fields'][] = $this->consentCheckbox();
+        }
 
         return $content;
+    }
+
+    function consentCheckbox()
+    {
+        $field = "<input class='form-control' type='checkbox' name='wcs_installment_payolution_terms' />";
+
+        $consent_message = preg_replace_callback("/_(.*)_/", function ($matches) {
+            if (strlen(MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_MID)) {
+                return "<a style='color:white;mix-blend-mode:difference;' href='https://payment.payolution.com/payolution-payment/infoport/dataprivacyconsent?mId=" . base64_encode(MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_MID) . "' target='_blank'>$matches[1]</a>";
+            } else {
+                return $matches[1];
+            }
+        }, $this->_seamless->getText('consent_text'));
+
+        return array(
+            'title' => $consent_message,
+            'field' => $field
+        );
     }
 
     /**
@@ -165,6 +190,12 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 
             if ($age < 18) {
                 $_SESSION['gm_error_message'] = $this->_seamless->getText('birthdate_too_young');
+                xtc_redirect(GM_HTTP_SERVER . DIR_WS_CATALOG . 'checkout_payment.php');
+                die;
+            }
+
+            if (MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT == "on" && $_POST['wcs_installment_payolution_terms'] !== 'on') {
+                $_SESSION['gm_error_message'] = $this->_seamless->getText('payolution_terms_error');
                 xtc_redirect(GM_HTTP_SERVER . DIR_WS_CATALOG . 'checkout_payment.php');
                 die;
             }
@@ -196,6 +227,13 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 		$config['MAX_AMOUNT'] = array(
 			'configuration_value' => '3500'
 		);
+        $config['PAYOLUTION_MID'] = array(
+            'configuration_value' => ''
+        );
+        $config['PAYOLUTION_CONSENT'] = array(
+            'configuration_value' => 'off',
+            'set_function'        => "wcs_cfg_installment_terms_checkbox("
+        );
 
 		return $config;
 	}
