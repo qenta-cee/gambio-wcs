@@ -59,6 +59,117 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 		return $this->invoiceInstallmentPreCheck();
 	}
 
+    function selection()
+    {
+        $content = parent::selection();
+        if($content === false)
+        {
+            return false;
+        }
+
+        $years = range(date("Y")-10, date("Y")-80);
+        $years_options = "";
+        foreach ($years as $year) {
+            $years_options .= "<option value='$year'>$year</option>";
+        }
+
+        $months = array(
+            1 => _JANUARY,
+            2 => _FEBRUARY,
+            3 => _MARCH,
+            4 => _APRIL,
+            5 => _MAY,
+            6 => _JUNE,
+            7 => _JULY,
+            8 => _AUGUST,
+            9 => _SEPTEMBER,
+            10 => _OCTOBER,
+            11 => _NOVEMBER,
+            12 => _DECEMBER
+        );
+        $months_options = "";
+
+        $days = range(1, 31);
+        $days_options = "";
+        foreach ($days as $day) {
+            $days_options .= "<option value='$day'>$day</option>";
+        }
+
+        foreach ($months as $number => $word) {
+            $months_options .= "<option value='$number'>$word</option>";
+        }
+
+        $script = "<script>
+    function wcsCheckBirthdate(element) {
+        var el = $(element);
+        
+        var day = (el.attr('name').indexOf(\"_day\")!==-1?el:$('select[name$=_birthdate_day]',el.parent())).val();
+        var month = (el.attr('name').indexOf(\"_month\")!==-1?el:$('select[name$=_birthdate_month]',el.parent())).val();
+        var year = (el.attr('name').indexOf(\"_year\")!==-1?el:$('select[name$=_birthdate_year]',el.parent())).val();
+        
+        var dob = new Date();
+        dob.setDate(day);
+        dob.setMonth(month-1);
+        dob.setYear(year);
+        dob.setHours(12,0,0,0);
+        
+        var error = '<div class=\"col-xs-12 wcsAgeError alert alert-danger\" style=\"margin-bottom:0\">" . $this->_seamless->getText('birthdate_too_young') . "</div>';
+       
+            if (Math.abs(new Date(Date.now() - dob.getTime()).getUTCFullYear() - 1970) < 18) {
+                if (el.closest('.form-group').find('.wcsAgeError').length == 0) {
+                    el.closest('.form-group').append(error);
+                } else {
+                    el.closest('.form-group').find('.wcsAgeError').show();
+                }
+            } else {
+                el.closest('.form-group').find('.wcsAgeError').hide();
+            }
+    }
+</script>";
+
+
+        $field = "$script<div class='form-inline'>
+        <select class='wcs_eps input-select form-control' name='wcs_installment_birthdate_day' onchange='wcsCheckBirthdate(this)'>
+            $days_options
+        </select>
+        <select class='wcs_eps input-select form-control' name='wcs_installment_birthdate_month' onchange='wcsCheckBirthdate(this)'>
+            $months_options
+        </select>
+        <select class='wcs_eps input-select form-control' name='wcs_installment_birthdate_year' onchange='wcsCheckBirthdate(this)'>
+            $years_options
+        </select>
+    </div>";
+
+        $field .= '</select>';
+        $content['fields'][] = array(
+            'title' => $this->_seamless->getText('birthdate'),
+            'field' => $field
+        );
+
+        return $content;
+    }
+
+    /**
+     * check if dob is at least 18 years ago + possible consent check
+     */
+    public function pre_confirmation_check()
+    {
+        if ($_POST['payment'] == 'wcs_installment') {
+            $day = $_POST['wcs_installment_birthdate_day'];
+            $month = $_POST['wcs_installment_birthdate_month'];
+            $year = $_POST['wcs_installment_birthdate_year'];
+
+            $age = (date("md", date("U", mktime(0, 0, 0, $month, $day, $year))) > date("md")
+                ? ((date("Y") - $year) - 1)
+                : (date("Y") - $year));
+
+            if ($age < 18) {
+                $_SESSION['gm_error_message'] = $this->payone->get_text('birthdate_too_young');
+                xtc_redirect(GM_HTTP_SERVER . DIR_WS_CATALOG . 'checkout_payment.php');
+                die;
+            }
+        }
+    }
 
 	/**
 	 * module config
