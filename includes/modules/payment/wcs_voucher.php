@@ -31,7 +31,7 @@ class wcs_voucher_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 25;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::VOUCHER;
-	protected $_logoFilename     = 'myVoucher.jpg';
+	protected $_logoFilename     = 'voucher.png';
 
 
 	function selection()

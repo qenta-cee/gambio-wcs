@@ -31,7 +31,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 {
 	protected $_defaultSortOrder = 1;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::CCARD;
-	protected $_logoFilename     = 'ccard.jpg';
+	protected $_logoFilename     = 'ccard.png';
 
 
 	function selection()

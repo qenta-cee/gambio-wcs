@@ -31,7 +31,7 @@ class wcs_sepadd_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 21;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::SEPADD;
-	protected $_logoFilename     = 'sepa.jpg';
+	protected $_logoFilename     = 'sepa.png';
 
 
 	function selection()

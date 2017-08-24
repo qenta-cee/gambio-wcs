@@ -669,41 +669,48 @@ class GMWirecardCheckoutSeamless_ORIGIN
             ->createConsumerMerchantCrmId($customerMail)
 			->setConsumerData($this->getConsumerData($order, $paymentType));
 
+        if (isset($_SESSION['wcs_consumer_device_id'])) {
+            $init->consumerDeviceId = $_SESSION['wcs_consumer_device_id'];
+        }
+
 		$init->orders_id = $order->info['orders_id'];
 
 		if ($this->getConfigValue('send_basket')
 			|| ($paymentType == WirecardCEE_Stdlib_PaymentTypeAbstract::INVOICE
-				&& MODULE_PAYMENT_INVOICE_PROVIDER == 'RatePay')
+				&& (MODULE_PAYMENT_WCS_INVOICE_PROVIDER == 'RatePay' || MODULE_PAYMENT_WCS_INVOICE_PROVIDER == 'Wirecard'))
 			|| ($paymentType == WirecardCEE_Stdlib_PaymentTypeAbstract::INSTALLMENT
-				&& MODULE_PAYMENT_INVOICE_PROVIDER == 'RatePay')
+				&& MODULE_PAYMENT_WCS_INSTALLMENT_PROVIDER == 'RatePay')
 		)
 		{
 			$basket = new WirecardCEE_Stdlib_Basket();
-			$basket->setCurrency($order->info['currency']);
 
 			foreach ($order->products as $idx => $p)
 			{
-				$price = $xtPrice->xtcRemoveTax($p['price'], $p['tax']);
-				$item = new WirecardCEE_Stdlib_Basket_Item();
-				$item->setUnitPrice(number_format($price, $decimalPlaces, '.', ''));
-				$item->setDescription($p['name']);
-				$item->setArticleNumber($p['model']);
-				$vat = $p['final_price'] - round($price, 2) * (int)$p['qty'];
-				$item->setTax(number_format($vat, $decimalPlaces, '.', ''));
+			    $product_id = $p['model'];
+                if (!strlen($p['model'])) {
+                    $product_id = $p['id'];
+                }
+                $item = new WirecardCEE_Stdlib_Basket_Item($product_id);
+                $item->setName($p['name'])
+                    ->setDescription($p['name'])
+                    ->setUnitNetAmount(number_format($xtPrice->xtcRemoveTax($p['price'], $p['tax']), $decimalPlaces, '.', ''))
+                    ->setUnitGrossAmount(number_format($p['price'], $decimalPlaces, '.', ''))
+                    ->setUnitTaxAmount(number_format($xtPrice->xtcGetTax($p['final_price'], $p['tax']), $decimalPlaces, '.', ''))
+                    ->setUnitTaxRate(number_format($p['tax'], $decimalPlaces, '.', ''));
+
 				$basket->addItem($item, (int)$p['qty']);
 			}
+			$item = new WirecardCEE_Stdlib_Basket_Item('shipping');
+            $item->setName($order->info['shipping_method'])
+                ->setDescription($order->info['shipping_method'])
+                ->setUnitNetAmount(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''))
+                ->setUnitGrossAmount(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''))
+                ->setUnitTaxAmount(0)
+                ->setUnitTaxRate(0);
 
-			$item = new WirecardCEE_Stdlib_Basket_Item();
-			$item->setArticleNumber('shipping');
-			$item->setUnitPrice(number_format($order->info['pp_shipping'], $decimalPlaces, '.', ''));
-			$item->setTax(0);
-			$item->setDescription($order->info['shipping_method']);
 			$basket->addItem($item);
 
-			foreach ($basket->__toArray() as $k => $v)
-			{
-				$init->$k = $v;
-			}
+            $init->setBasket($basket);
 		}
 
 		$init->generateCustomerStatement($this->getConfigValue('shop_name'));

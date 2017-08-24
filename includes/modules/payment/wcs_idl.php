@@ -42,7 +42,7 @@ class wcs_idl_ORIGIN extends WirecardCheckoutSeamless
 			return false;
 		}
 
-		$field = '<select class="wcs_idl input-select" name="wcs_financialinstitution_idl">';
+		$field = '<select class="wcs_idl input-select form-control" name="wcs_financialinstitution_idl">';
 
 		foreach(WirecardCEE_QMore_PaymentType::getFinancialInstitutions($this->_paymenttype) as $value => $name)
 		{

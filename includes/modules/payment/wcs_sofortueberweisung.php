@@ -31,7 +31,7 @@ class wcs_sofortueberweisung_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 6;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::SOFORTUEBERWEISUNG;
-	protected $_logoFilename     = 'sofort_ueberweisung.jpg';
+	protected $_logoFilename     = 'sofort.png';
 }
 
 MainFactory::load_origin_class('wcs_sofortueberweisung');

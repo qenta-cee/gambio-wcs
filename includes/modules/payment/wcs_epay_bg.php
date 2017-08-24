@@ -31,7 +31,7 @@ class wcs_epay_bg_ORIGIN extends WirecardCheckoutSeamless
 {
 	protected $_defaultSortOrder = 20;
 	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::EPAYBG;
-	protected $_logoFilename     = 'epay.jpg';
+	protected $_logoFilename     = 'epay.png';
 }
 
 MainFactory::load_origin_class('wcs_epay_bg');

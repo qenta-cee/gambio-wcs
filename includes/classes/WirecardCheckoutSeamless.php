@@ -174,7 +174,36 @@ class WirecardCheckoutSeamless_ORIGIN
 	 */
 	public function process_button()
 	{
-		return false;
+	    $customer_id = function(){
+            $configtype = gm_get_conf( 'WCS_configtype');
+            switch($configtype){
+                case 'test_no3d' : return 'D200411';
+                case 'test_3d' : return 'D200411';
+                case 'demo' : return 'D200001';
+            }
+            return gm_get_conf('WCS_CUSTOMER_ID');
+        };
+        $customer_id = $customer_id();
+
+	    $consumerDeviceId = md5( $customer_id . "_" . microtime());
+	    if(isset($_SESSION['wcs_consumer_device_id'])){
+	        $consumerDeviceId = $_SESSION['wcs_consumer_device_id'];
+        } else {
+            $_SESSION['wcs_consumer_device_id'] = $consumerDeviceId;
+        }
+
+		return "<script language='JavaScript'>
+                var di = {t:'" . $consumerDeviceId . "',v:'WDWL',l:'Checkout'};
+              </script>
+              <script type='text/javascript' src='//d.ratepay.com/" . $consumerDeviceId . "/di.js'></script>
+              <noscript>
+                <link rel='stylesheet' type='text/css' href='//d.ratepay.com/di.css?t=" . $consumerDeviceId . "&v=WDWL&l=Checkout'>
+              </noscript>
+              <object type='application/x-shockwave-flash' data='//d.ratepay.com/WDWL/c.swf' width='0' height='0'>
+                <param name='movie' value='//d.ratepay.com/WDWL/c.swf' />
+                <param name='flashvars' value='t=" . $consumerDeviceId . "&v=WDWL'/>
+                <param name='AllowScriptAccess' value='always'/>
+              </object>";
 	}
 
 
@@ -220,6 +249,8 @@ class WirecardCheckoutSeamless_ORIGIN
 		             TABLE_PAYMENT_WCS, $orders_id, 'INIT', $this->_paymenttype,
 		             xtc_db_input(json_encode($init->getRequestData())));
 		xtc_db_query($q);
+
+        unset($_SESSION['wcs_consumer_device_id']);
 
 		require 'checkout_wirecard_checkout_seamless.php';
 
@@ -504,6 +535,9 @@ class WirecardCheckoutSeamless_ORIGIN
 			case 'RatePay':
 				return $this->ratePayPreCheck();
 
+            case 'Wirecard':
+				return $this->ratePayPreCheck();
+
 			default:
 				return false;
 		}
@@ -519,31 +553,28 @@ class WirecardCheckoutSeamless_ORIGIN
 		global $order, $xtPrice;
 
 		$c          = strtoupper($this->code);
-		$consumerID = xtc_session_is_registered('customer_id') ? $_SESSION['customer_id'] : "";
 
 		$currency = $order->info['currency'];
 		$total    = $order->info['total'];
 		$amount   = round($xtPrice->xtcCalculateCurrEx($total, $currency), $xtPrice->get_decimal_places($currency));
 
-		$sql = 'SELECT (COUNT(*) > 0) as cnt FROM ' . TABLE_CUSTOMERS
-		       . ' WHERE DATEDIFF(NOW(), customers_dob) > 6574 AND customers_id="' . $consumerID . '"';
-
-		$result = xtc_db_fetch_array(xtc_db_query($sql));
-		if($result === false)
-		{
-			return false;
-		}
+        $currencies = explode(',', $this->constant("MODULE_PAYMENT_{$c}_CURRENCIES"));
+        $currencies = array_map(function ($c)
+        {
+            return strtoupper(trim($c));
+        }, $currencies);
 
 		$maxAmount    = $this->constant("MODULE_PAYMENT_{$c}_MAX_AMOUNT");
-		$ageCheck     = (bool)$result['cnt'];
 		$country_code = $order->billing['country']['iso_code_2'];
 
-		return ($ageCheck
-		        && ($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
+        if ($this->constant("MODULE_PAYMENT_{$c}_EQUAL_ADDRESS") === "on" && $order->delivery !== $order->billing) {
+            return false;
+        }
+
+		return (($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
 		            && (!strlen($maxAmount) || $amount <= $maxAmount))
-		        && ($currency == 'EUR')
-		        && (in_array($country_code, Array('AT', 'DE', 'CH')))
-		        && ($order->delivery === $order->billing));
+		        && in_array($currency, $currencies)
+		        && (in_array($country_code, Array('AT', 'DE', 'CH'))));
 	}
 
 
@@ -555,40 +586,27 @@ class WirecardCheckoutSeamless_ORIGIN
 	{
 		global $order, $xtPrice;
 
-		$c          = strtoupper($this->code);
-		$consumerID = xtc_session_is_registered('customer_id') ? $_SESSION['customer_id'] : "";
+		$c        = strtoupper($this->code);
 
 		$currency = $order->info['currency'];
 		$total    = $order->info['total'];
 		$amount   = round($xtPrice->xtcCalculateCurrEx($total, $currency), $xtPrice->get_decimal_places($currency));
 
-		$sql = 'SELECT customers_dob FROM ' . TABLE_CUSTOMERS . ' WHERE customers_id="' . $consumerID . '"';
-
-		$minAge     = (int)$this->constant("MODULE_PAYMENT_{$c}_MIN_AGE");
 		$currencies = explode(',', $this->constant("MODULE_PAYMENT_{$c}_CURRENCIES"));
 		$currencies = array_map(function ($c)
 		{
 			return strtoupper(trim($c));
 		}, $currencies);
 
-		$result = xtc_db_fetch_array(xtc_db_query($sql));
-		if($result === false)
-		{
-			return false;
-		}
-
 		$maxAmount = $this->constant("MODULE_PAYMENT_{$c}_MAX_AMOUNT");
-		$birthDate = new DateTime($result['customers_dob']);
-		$diff      = $birthDate->diff(new DateTime());
-		if($diff->y < $minAge)
-		{
-			return false;
-		}
+
+        if ($this->constant("MODULE_PAYMENT_{$c}_EQUAL_ADDRESS") === "on" && $order->delivery !== $order->billing) {
+            return false;
+        }
 
 		return (($amount >= $this->constant("MODULE_PAYMENT_{$c}_MIN_AMOUNT")
 		         && (!strlen($maxAmount) || $amount <= $maxAmount))
-		        && in_array($currency, $currencies)
-		        && $order->delivery === $order->billing);
+		        && in_array($currency, $currencies));
 	}
 
 
@@ -633,9 +651,89 @@ function wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key = '')
 {
 	$name = (($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value');
 
-	$providers = WirecardCheckoutSeamless_ORIGIN::$invoiceinstallment_provider;
+    $providers = array(
+        array('id' => 'Wirecard', 'text' => 'Wirecard'),
+        array('id' => 'Payolution', 'text' => 'Payolution'),
+        array('id' => 'RatePay', 'text' => 'RatePay')
+    );
 
 	return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
+}
+
+/**
+ * checkbox for invoice config
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_invoice_checkbox()
+{
+    $name = 'MODULE_PAYMENT_WCS_INVOICE_EQUAL_ADDRESS';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
+}
+
+/**
+ * checkbox for installment config
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_installment_checkbox()
+{
+    $name = 'MODULE_PAYMENT_WCS_INSTALLMENT_EQUAL_ADDRESS';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
+}
+
+/**
+ * checkbox for invoice payolution terms
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_invoice_terms_checkbox()
+{
+    $name = 'MODULE_PAYMENT_WCS_INVOICE_PAYOLUTION_CONSENT';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
+}
+
+/**
+ * checkbox for installment payolution terms
+ *
+ * @param string $p_key
+ * @return string
+ */
+function wcs_cfg_installment_terms_checkbox()
+{
+    $name = 'MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT';
+    $checked = (defined($name)) ? (constant($name) === 'on') ? 'on' : 'off' : 'off';
+    $name = 'configuration[' . $name . ']';
+
+    $values = array(
+        array('id' => 'on', 'text' => 'On'),
+        array('id' => 'off', 'text' => 'Off')
+    );
+    return xtc_draw_pull_down_menu($name, $values, $checked);
 }
 
 /**
@@ -648,7 +746,14 @@ function wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key = '')
  */
 function wcs_cfg_pull_down_installment_provider($p_provider_id, $p_key = '')
 {
-	return wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key);
+    $name = (($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value');
+
+    $providers = array(
+        array('id' => 'Payolution', 'text' => 'Payolution'),
+        array('id' => 'RatePay', 'text' => 'RatePay')
+    );
+
+    return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
 }
 
 /**
