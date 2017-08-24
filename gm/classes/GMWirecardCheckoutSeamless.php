@@ -686,7 +686,11 @@ class GMWirecardCheckoutSeamless_ORIGIN
 
 			foreach ($order->products as $idx => $p)
 			{
-			    $item = new WirecardCEE_Stdlib_Basket_Item($p['model']);
+			    $product_id = $p['model'];
+                if (!strlen($p['model'])) {
+                    $product_id = $p['id'];
+                }
+                $item = new WirecardCEE_Stdlib_Basket_Item($product_id);
                 $item->setName($p['name'])
                     ->setDescription($p['name'])
                     ->setUnitNetAmount(number_format($xtPrice->xtcRemoveTax($p['price'], $p['tax']), $decimalPlaces, '.', ''))
