@@ -677,7 +677,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 
 		if ($this->getConfigValue('send_basket')
 			|| ($paymentType == WirecardCEE_Stdlib_PaymentTypeAbstract::INVOICE
-				&& MODULE_PAYMENT_WCS_INVOICE_PROVIDER == 'RatePay')
+				&& (MODULE_PAYMENT_WCS_INVOICE_PROVIDER == 'RatePay' || MODULE_PAYMENT_WCS_INVOICE_PROVIDER == 'Wirecard'))
 			|| ($paymentType == WirecardCEE_Stdlib_PaymentTypeAbstract::INSTALLMENT
 				&& MODULE_PAYMENT_WCS_INSTALLMENT_PROVIDER == 'RatePay')
 		)

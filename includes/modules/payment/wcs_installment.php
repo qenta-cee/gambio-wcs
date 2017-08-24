@@ -212,7 +212,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 
 		$config['PROVIDER']   = array(
 			'configuration_value' => '',
-			'set_function'        => "wcs_cfg_pull_down_invoice_provider( "
+			'set_function'        => "wcs_cfg_pull_down_installment_provider( "
 		);
 		$config['CURRENCIES'] = array(
 			'configuration_value' => 'EUR'

@@ -651,8 +651,11 @@ function wcs_cfg_pull_down_invoice_provider($p_provider_id, $p_key = '')
 {
 	$name = (($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value');
 
-	$providers = WirecardCheckoutSeamless_ORIGIN::$invoiceinstallment_provider;
-    array_push($providers, array('id' => 'Wirecard', 'text' => 'Wirecard'));
+    $providers = array(
+        array('id' => 'Wirecard', 'text' => 'Wirecard'),
+        array('id' => 'Payolution', 'text' => 'Payolution'),
+        array('id' => 'RatePay', 'text' => 'RatePay')
+    );
 
 	return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
 }
@@ -745,7 +748,10 @@ function wcs_cfg_pull_down_installment_provider($p_provider_id, $p_key = '')
 {
     $name = (($p_key) ? 'configuration[' . $p_key . ']' : 'configuration_value');
 
-    $providers = WirecardCheckoutSeamless_ORIGIN::$invoiceinstallment_provider;
+    $providers = array(
+        array('id' => 'Payolution', 'text' => 'Payolution'),
+        array('id' => 'RatePay', 'text' => 'RatePay')
+    );
 
     return xtc_draw_pull_down_menu($name, $providers, $p_provider_id);
 }
