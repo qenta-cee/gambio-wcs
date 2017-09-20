@@ -32,7 +32,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 	/**
 	 * @var string
 	 */
-	protected $_plugintype = 'gambio wcs';
+	protected $_plugintype = 'gambio_wcs';
 
 	/**
 	 * @var string
