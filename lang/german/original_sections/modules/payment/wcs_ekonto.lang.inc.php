@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_EKONTO_TEXT_TITLE' => 'Wirecard eKonto',
-	'MODULE_PAYMENT_WCS_EKONTO_TEXT_INFO'  => 'Wirecard eKonto',
+	'MODULE_PAYMENT_WCS_EKONTO_TEXT_TITLE' => 'eKonto',
+	'MODULE_PAYMENT_WCS_EKONTO_TEXT_INFO'  => 'eKonto',
 	'MODULE_PAYMENT_WCS_EKONTO_TEXT_DESC'  => '',
 );

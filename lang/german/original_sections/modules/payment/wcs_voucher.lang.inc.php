@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_TITLE' => 'Wirecard Mein Gutschein',
-	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_INFO'  => 'Wirecard Mein Gutschein',
+	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_TITLE' => 'Mein Gutschein',
+	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_INFO'  => 'Mein Gutschein',
 	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_DESC'  => ''
 );

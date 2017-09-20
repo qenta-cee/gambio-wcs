@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_POLI_TEXT_TITLE' => 'Wirecard POLi',
-	'MODULE_PAYMENT_WCS_POLI_TEXT_INFO'  => 'Wirecard POLi',
+	'MODULE_PAYMENT_WCS_POLI_TEXT_TITLE' => 'POLi',
+	'MODULE_PAYMENT_WCS_POLI_TEXT_INFO'  => 'POLi',
 	'MODULE_PAYMENT_WCS_POLI_TEXT_DESC'  => ''
 );

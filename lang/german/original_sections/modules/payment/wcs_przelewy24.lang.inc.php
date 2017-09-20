@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_PRZELEWY24_TEXT_TITLE' => 'Wirecard Przelewy24',
-	'MODULE_PAYMENT_WCS_PRZELEWY24_TEXT_INFO'  => 'Wirecard Przelewy24',
+	'MODULE_PAYMENT_WCS_PRZELEWY24_TEXT_TITLE' => 'Przelewy24',
+	'MODULE_PAYMENT_WCS_PRZELEWY24_TEXT_INFO'  => 'Przelewy24',
 	'MODULE_PAYMENT_WCS_PRZELEWY24_TEXT_DESC'  => ''
 );

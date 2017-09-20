@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_CCARDMOTO_TEXT_TITLE' => 'Wirecard Kreditkarte - Mail Order / Telephone Order',
-	'MODULE_PAYMENT_WCS_CCARDMOTO_TEXT_INFO'  => 'Wirecard Kreditkarte - Mail Order / Telephone Order',
+	'MODULE_PAYMENT_WCS_CCARDMOTO_TEXT_TITLE' => 'Kreditkarte - Mail Order / Telephone Order',
+	'MODULE_PAYMENT_WCS_CCARDMOTO_TEXT_INFO'  => 'Kreditkarte - Mail Order / Telephone Order',
 	'MODULE_PAYMENT_WCS_CCARDMOTO_TEXT_DESC'  => ''
 );

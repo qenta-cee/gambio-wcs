@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_PBX_TEXT_TITLE' => 'Wirecard paybox',
-	'MODULE_PAYMENT_WCS_PBX_TEXT_INFO'  => 'Wirecard paybox',
+	'MODULE_PAYMENT_WCS_PBX_TEXT_TITLE' => 'paybox',
+	'MODULE_PAYMENT_WCS_PBX_TEXT_INFO'  => 'paybox',
 	'MODULE_PAYMENT_WCS_PBX_TEXT_DESC'  => ''
 );

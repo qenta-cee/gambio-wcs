@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_SEPADD_TEXT_TITLE' => 'Wirecard SEPA Lastschrift',
-	'MODULE_PAYMENT_WCS_SEPADD_TEXT_INFO'  => 'Wirecard SEPA Lastschrift',
+	'MODULE_PAYMENT_WCS_SEPADD_TEXT_TITLE' => 'SEPA Lastschrift',
+	'MODULE_PAYMENT_WCS_SEPADD_TEXT_INFO'  => 'SEPA Lastschrift',
 	'MODULE_PAYMENT_WCS_SEPADD_TEXT_DESC'  => ''
 );
