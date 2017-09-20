@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_PSC_TEXT_TITLE' => 'Wirecard paysafecard',
-	'MODULE_PAYMENT_WCS_PSC_TEXT_INFO'  => 'Wirecard paysafecard',
+	'MODULE_PAYMENT_WCS_PSC_TEXT_TITLE' => 'paysafecard',
+	'MODULE_PAYMENT_WCS_PSC_TEXT_INFO'  => 'paysafecard',
 	'MODULE_PAYMENT_WCS_PSC_TEXT_DESC'  => ''
 );

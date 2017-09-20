@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_SOFORTUEBERWEISUNG_TEXT_TITLE' => 'Wirecard Online bank transfer.',
-	'MODULE_PAYMENT_WCS_SOFORTUEBERWEISUNG_TEXT_INFO'  => 'Wirecard Online bank transfer.',
+	'MODULE_PAYMENT_WCS_SOFORTUEBERWEISUNG_TEXT_TITLE' => 'Online bank transfer.',
+	'MODULE_PAYMENT_WCS_SOFORTUEBERWEISUNG_TEXT_INFO'  => 'Online bank transfer.',
 	'MODULE_PAYMENT_WCS_SOFORTUEBERWEISUNG_TEXT_DESC'  => ''
 );

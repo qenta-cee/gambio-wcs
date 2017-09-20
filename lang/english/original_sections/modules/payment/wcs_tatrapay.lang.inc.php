@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_TATRAPAY_TEXT_TITLE' => 'Wirecard TatraPay',
-	'MODULE_PAYMENT_WCS_TATRAPAY_TEXT_INFO'  => 'Wirecard TatraPay',
+	'MODULE_PAYMENT_WCS_TATRAPAY_TEXT_TITLE' => 'TatraPay',
+	'MODULE_PAYMENT_WCS_TATRAPAY_TEXT_INFO'  => 'TatraPay',
 	'MODULE_PAYMENT_WCS_TATRAPAY_TEXT_DESC'  => ''
 );

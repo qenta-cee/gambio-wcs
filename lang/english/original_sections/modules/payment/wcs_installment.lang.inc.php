@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_TITLE' => 'Wirecard Installment',
-	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_INFO'  => 'Wirecard Installment',
+	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_TITLE' => 'Installment',
+	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_INFO'  => 'Installment',
 	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_DESC'  => ''
 );

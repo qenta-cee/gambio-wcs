@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_TITLE' => 'Wirecard My Voucher',
-	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_INFO'  => 'Wirecard My Voucher',
+	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_TITLE' => 'My Voucher',
+	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_INFO'  => 'My Voucher',
 	'MODULE_PAYMENT_WCS_VOUCHER_TEXT_DESC'  => ''
 );
