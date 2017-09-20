@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_MONETA_TEXT_TITLE' => 'Wirecard moneta.ru',
-	'MODULE_PAYMENT_WCS_MONETA_TEXT_INFO'  => 'Wirecard moneta.ru',
+	'MODULE_PAYMENT_WCS_MONETA_TEXT_TITLE' => 'moneta.ru',
+	'MODULE_PAYMENT_WCS_MONETA_TEXT_INFO'  => 'moneta.ru',
 	'MODULE_PAYMENT_WCS_MONETA_TEXT_DESC'  => '',
 );

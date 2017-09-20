@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_TRUSTLY_TEXT_TITLE' => 'Wirecard Trustly',
-	'MODULE_PAYMENT_WCS_TRUSTLY_TEXT_INFO'  => 'Wirecard Trustly',
+	'MODULE_PAYMENT_WCS_TRUSTLY_TEXT_TITLE' => 'Trustly',
+	'MODULE_PAYMENT_WCS_TRUSTLY_TEXT_INFO'  => 'Trustly',
 	'MODULE_PAYMENT_WCS_TRUSTLY_TEXT_DESC'  => ''
 );

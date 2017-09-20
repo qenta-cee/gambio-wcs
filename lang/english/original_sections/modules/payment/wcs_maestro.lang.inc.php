@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_MAESTRO_TEXT_TITLE' => 'Wirecard Maestro SecureCode',
-	'MODULE_PAYMENT_WCS_MAESTRO_TEXT_INFO'  => 'Wirecard Maestro SecureCode',
+	'MODULE_PAYMENT_WCS_MAESTRO_TEXT_TITLE' => 'Maestro SecureCode',
+	'MODULE_PAYMENT_WCS_MAESTRO_TEXT_INFO'  => 'Maestro SecureCode',
 	'MODULE_PAYMENT_WCS_MAESTRO_TEXT_DESC'  => '',
 );

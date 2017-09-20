@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_PAYPAL_TEXT_TITLE' => 'Wirecard PayPal',
-	'MODULE_PAYMENT_WCS_PAYPAL_TEXT_INFO'  => 'Wirecard PayPal',
+	'MODULE_PAYMENT_WCS_PAYPAL_TEXT_TITLE' => 'PayPal',
+	'MODULE_PAYMENT_WCS_PAYPAL_TEXT_INFO'  => 'PayPal',
 	'MODULE_PAYMENT_WCS_PAYPAL_TEXT_DESC'  => ''
 );

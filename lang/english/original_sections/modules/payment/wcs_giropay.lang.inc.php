@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_GIROPAY_TEXT_TITLE' => 'Wirecard giropay',
-	'MODULE_PAYMENT_WCS_GIROPAY_TEXT_INFO'  => 'Wirecard giropay',
+	'MODULE_PAYMENT_WCS_GIROPAY_TEXT_TITLE' => 'giropay',
+	'MODULE_PAYMENT_WCS_GIROPAY_TEXT_INFO'  => 'giropay',
 	'MODULE_PAYMENT_WCS_GIROPAY_TEXT_DESC'  => ''
 );

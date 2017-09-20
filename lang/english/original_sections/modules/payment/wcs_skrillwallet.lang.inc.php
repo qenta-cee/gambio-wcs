@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_SKRILLWALLET_TEXT_TITLE' => 'Wirecard Skrill Digital Wallet',
-	'MODULE_PAYMENT_WCS_SKRILLWALLET_TEXT_INFO'  => 'Wirecard Skrill Digital Wallet',
+	'MODULE_PAYMENT_WCS_SKRILLWALLET_TEXT_TITLE' => 'Skrill Digital Wallet',
+	'MODULE_PAYMENT_WCS_SKRILLWALLET_TEXT_INFO'  => 'Skrill Digital Wallet',
 	'MODULE_PAYMENT_WCS_SKRILLWALLET_TEXT_DESC'  => ''
 );

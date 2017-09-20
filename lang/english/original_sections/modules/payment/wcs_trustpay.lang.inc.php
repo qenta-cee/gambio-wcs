@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_TRUSTPAY_TEXT_TITLE' => 'Wirecard TrustPay',
-	'MODULE_PAYMENT_WCS_TRUSTPAY_TEXT_INFO'  => 'Wirecard TrustPay',
+	'MODULE_PAYMENT_WCS_TRUSTPAY_TEXT_TITLE' => 'TrustPay',
+	'MODULE_PAYMENT_WCS_TRUSTPAY_TEXT_INFO'  => 'TrustPay',
 	'MODULE_PAYMENT_WCS_TRUSTPAY_TEXT_DESC'  => ''
 );

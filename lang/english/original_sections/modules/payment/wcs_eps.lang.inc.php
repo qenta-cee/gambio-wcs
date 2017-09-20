@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_EPS_TEXT_TITLE' => 'Wirecard eps Online-Überweisung',
-	'MODULE_PAYMENT_WCS_EPS_TEXT_INFO'  => 'Wirecard eps Online-Überweisung',
+	'MODULE_PAYMENT_WCS_EPS_TEXT_TITLE' => 'eps Online-Überweisung',
+	'MODULE_PAYMENT_WCS_EPS_TEXT_INFO'  => 'eps Online-Überweisung',
 	'MODULE_PAYMENT_WCS_EPS_TEXT_DESC'  => ''
 );

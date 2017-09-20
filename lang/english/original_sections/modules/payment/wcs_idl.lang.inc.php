@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_IDL_TEXT_TITLE' => 'Wirecard iDEAL',
-	'MODULE_PAYMENT_WCS_IDL_TEXT_INFO'  => 'Wirecard iDEAL',
+	'MODULE_PAYMENT_WCS_IDL_TEXT_TITLE' => 'iDEAL',
+	'MODULE_PAYMENT_WCS_IDL_TEXT_INFO'  => 'iDEAL',
 	'MODULE_PAYMENT_WCS_IDL_TEXT_DESC'  => ''
 );

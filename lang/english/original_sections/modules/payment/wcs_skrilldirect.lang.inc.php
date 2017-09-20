@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_SKRILLDIRECT_TEXT_TITLE' => 'Wirecard Skrill Direct',
-	'MODULE_PAYMENT_WCS_SKRILLDIRECT_TEXT_INFO'  => 'Wirecard Skrill Direct',
+	'MODULE_PAYMENT_WCS_SKRILLDIRECT_TEXT_TITLE' => 'Skrill Direct',
+	'MODULE_PAYMENT_WCS_SKRILLDIRECT_TEXT_INFO'  => 'Skrill Direct',
 	'MODULE_PAYMENT_WCS_SKRILLDIRECT_TEXT_DESC'  => ''
 );

@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_INVOICE_TEXT_TITLE' => 'Wirecard Invoice',
-	'MODULE_PAYMENT_WCS_INVOICE_TEXT_INFO'  => 'Wirecard Invoice',
+	'MODULE_PAYMENT_WCS_INVOICE_TEXT_TITLE' => 'Invoice',
+	'MODULE_PAYMENT_WCS_INVOICE_TEXT_INFO'  => 'Invoice',
 	'MODULE_PAYMENT_WCS_INVOICE_TEXT_DESC'  => ''
 );

@@ -23,8 +23,8 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_CCARD_TEXT_TITLE' => 'Wirecard Kreditkarte',
-	'MODULE_PAYMENT_WCS_CCARD_TEXT_INFO'  => 'Wirecard Kreditkarte',
+	'MODULE_PAYMENT_WCS_CCARD_TEXT_TITLE' => 'Kreditkarte',
+	'MODULE_PAYMENT_WCS_CCARD_TEXT_INFO'  => 'Kreditkarte',
 	'MODULE_PAYMENT_WCS_CCARD_TEXT_DESC'  => '',
 
 );

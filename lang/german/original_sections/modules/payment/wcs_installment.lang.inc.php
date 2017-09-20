@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_TITLE' => 'Wirecard Kauf auf Raten',
-	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_INFO'  => 'Wirecard Kauf auf Raten',
+	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_TITLE' => 'Kauf auf Raten',
+	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_INFO'  => 'Kauf auf Raten',
 	'MODULE_PAYMENT_WCS_INSTALLMENT_TEXT_DESC'  => ''
 );

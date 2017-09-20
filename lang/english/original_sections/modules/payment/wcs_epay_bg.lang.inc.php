@@ -23,7 +23,7 @@
  */
 
 $t_language_text_section_content_array = array(
-	'MODULE_PAYMENT_WCS_EPAY_BG_TEXT_TITLE' => 'Wirecard ePay.bg',
-	'MODULE_PAYMENT_WCS_EPAY_BG_TEXT_INFO' => 'Wirecard ePay.bg',
+	'MODULE_PAYMENT_WCS_EPAY_BG_TEXT_TITLE' => 'ePay.bg',
+	'MODULE_PAYMENT_WCS_EPAY_BG_TEXT_INFO' => 'ePay.bg',
 	'MODULE_PAYMENT_WCS_EPAY_BG_TEXT_DESC' => ''
 );
