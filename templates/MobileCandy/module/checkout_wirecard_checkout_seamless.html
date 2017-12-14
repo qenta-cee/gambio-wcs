@@ -21,9 +21,6 @@
 * not use this plugin if you do not agree to the terms of use!
 *}
 
-{load_language_text section="checkout_confirmation"}
-{load_language_text section="buttons" name="button"}
-{load_language_text section="wirecard_checkout_seamless" name="wcstxt"}
 
 {if $LIGHTBOX == 'true'}<div id="lightbox_content" style="display:none">{/if}
     <div class="order_confirm{if $LIGHTBOX == 'true'} lightbox_block{/if}">
@@ -45,9 +42,9 @@
             <div class="content_container">
                 {if !$NC_SUCCESS_INFO}
                     {if $FORM_ACTION == ''}
-                        <div class="continue_button"><a href="shopping_cart.php" data-theme="b" data-role="button">{$button.continue}</a></div>
+                        <div class="continue_button"><a href="shopping_cart.php" data-theme="b" data-role="button">{$BUTTON_CONTINUE}</a></div>
                     {else}
-                        <div class="continue_button"><a href="#" data-role="button" data-theme="b" class="action_submit">{$button.continue}</a></div>
+                        <div class="continue_button"><a href="#" data-role="button" data-theme="b" class="action_submit">{$BUTTON_CONTINUE}</a></div>
                     {/if}
                 {/if}
             </div>
@@ -56,6 +53,6 @@
         </div>
     </div>
 {if $LIGHTBOX == 'true'}
-    <a href="{$LIGHTBOX_CLOSE}" class="icon_lightbox_close_checkout button_close_lightbox" title="{$button.close}">{$button.close}</a>
+    <a href="{$LIGHTBOX_CLOSE}" class="icon_lightbox_close_checkout button_close_lightbox" title="{$BUTTON_CLOSE}">{$BUTTON_CLOSE}</a>
 </div>
 {/if}

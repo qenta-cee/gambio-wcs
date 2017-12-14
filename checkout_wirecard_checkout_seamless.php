@@ -94,13 +94,14 @@ else
 	$iFrame = '<iframe name="' . MODULE_PAYMENT_WCP_WINDOW_NAME . '" src="' . $initResponse->getRedirectUrl()
 	          . '" width="100%" height="660" border="0" frameborder="0"></iframe>';
 	$smarty->assign('FORM_ACTION', $iFrame);
-	$smarty->assign('CHECKOUT_TITLE', $_SESSION['wirecard_checkout_page']['translation']['title']);
+	$smarty->assign('CHECKOUT_TITLE', $seamless->getText('confirm_title'));
 	$smarty->assign('CHECKOUT_HEADER', '');
 	$smarty->assign('CHECKOUT_CONTENT', '');
 	$smarty->assign('IFRAME', true);
 	$smarty->assign('SHOW_STEPS', true);
 }
-
+$smarty->assign('BUTTON_CONTINUE', $seamless->getText('button_continue'));
+$smarty->assign('BUTTON_CLOSE', $seamless->getText('button_close'));
 $smarty->assign('LIGHTBOX', gm_get_conf('GM_LIGHTBOX_CHECKOUT'));
 $smarty->assign('tpl_path', 'templates/'.CURRENT_TEMPLATE.'/');
 $smarty->caching = 0;
