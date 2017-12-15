@@ -252,7 +252,10 @@ class WirecardCheckoutSeamless_ORIGIN
 
         unset($_SESSION['wcs_consumer_device_id']);
 
-		require 'checkout_wirecard_checkout_seamless.php';
+        if($this->_paymenttype == WirecardCEE_Stdlib_PaymentTypeAbstract::SOFORTUEBERWEISUNG)
+            header("Location: " . $initResponse->getRedirectUrl());
+        else
+            require 'checkout_wirecard_checkout_seamless.php';
 
 		die;
 	}
