@@ -21,22 +21,9 @@
 * not use this plugin if you do not agree to the terms of use!
 *}
 
-{load_language_text section="checkout_confirmation"}
-{load_language_text section="buttons" name="button"}
-{load_language_text section="wirecard_checkout_seamless" name="wcstxt"}
 
 {if $LIGHTBOX == 'true'}<div id="lightbox_content" style="display:none">{/if}
     <div class="order_confirm{if $LIGHTBOX == 'true'} lightbox_block{/if}">
-        {if $SHOW_STEPS}
-        <div class="process_bar">
-            <ul>
-                <li><label><span>{$txt.text_shoppingcart}</span></label></li>
-                <li><label><span>{$txt.text_yourdata}</span></label></li>
-                <li><label><span>{$txt.text_ordershipping}</span></label></li>
-                <li class="active"><label><span>{$wcstxt.confirm_title}</span></label></li>
-            </ul>
-        </div>
-        {/if}
         <h1>
             {$CHECKOUT_TITLE}
         </h1>
@@ -56,9 +43,9 @@
             <div class="continue">
                 {if !$NC_SUCCESS_INFO}
                     {if $FORM_ACTION == ''}
-                        <div class="continue_button" style="float: right;"><a href="shopping_cart.php" class="button_green_big button_set_big"><span class="button-outer"><span class="button-inner"><img class="png-fix" src="{$tpl_path}img/icons/icon-white-shoppingcart.png" alt="" style="margin-right:10px; float:left" />{$button.continue}</span></span></a></div>
+                        <div class="continue_button" style="float: right;"><a href="shopping_cart.php" class="button_green_big button_set_big"><span class="button-outer"><span class="button-inner"><img class="png-fix" src="{$tpl_path}img/icons/icon-white-shoppingcart.png" alt="" style="margin-right:10px; float:left" />{$BUTTON_CONTINUE}</span></span></a></div>
                     {else}
-                        <div class="continue_button" style="float: right;"><a href="#" class="button_green_big button_set_big action_submit"><span class="button-outer"><span class="button-inner"><img class="png-fix" src="{$tpl_path}img/icons/icon-white-shoppingcart.png" alt="" style="margin-right:10px; float:left" />{$button.continue}</span></span></a></div>
+                        <div class="continue_button" style="float: right;"><a href="#" class="button_green_big button_set_big action_submit"><span class="button-outer"><span class="button-inner"><img class="png-fix" src="{$tpl_path}img/icons/icon-white-shoppingcart.png" alt="" style="margin-right:10px; float:left" />{$BUTTON_CONTINUE}</span></span></a></div>
                     {/if}
                 {/if}
             </div>
@@ -67,6 +54,6 @@
         </div>
     </div>
 {if $LIGHTBOX == 'true'}
-    <a href="{$LIGHTBOX_CLOSE}" class="icon_lightbox_close_checkout button_close_lightbox" title="{$button.close}">{$button.close}</a>
+    <a href="{$LIGHTBOX_CLOSE}" class="icon_lightbox_close_checkout button_close_lightbox" title="{$button.close}">{$BUTTON_CLOSE}</a>
 </div>
 {/if}

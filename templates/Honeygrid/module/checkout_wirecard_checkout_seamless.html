@@ -21,15 +21,9 @@
 * not use this plugin if you do not agree to the terms of use!
 *}
 
-{load_language_text section="checkout_confirmation"}
-{load_language_text section="buttons" name="button"}
-{load_language_text section="wirecard_checkout_seamless" name="wcstxt"}
 
 {if $LIGHTBOX == 'true'}<div id="lightbox_content" style="display:none">{/if}
     <div class="order_confirm{if $LIGHTBOX == 'true'} lightbox_block{/if}">
-        {if $SHOW_STEPS}
-            {include file="get_usermod:{$tpl_path}snippets/navigation/process_funnel.html" step=3}
-        {/if}
         <h1>
             {$CHECKOUT_TITLE}
         </h1>
@@ -49,9 +43,9 @@
             <div class="row">
                 {if !$NC_SUCCESS_INFO}
                     {if $FORM_ACTION == ''}
-                        <div class="col-xs-6 col-xs-offset-6 col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9 text-right continue_button"><a href="shopping_cart.php" class="btn btn-primary btn-block">{$button.continue}</a></div>
+                        <div class="col-xs-6 col-xs-offset-6 col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9 text-right continue_button"><a href="shopping_cart.php" class="btn btn-primary btn-block">{$BUTTON_CONTINUE}</a></div>
                     {else}
-                        <div class="col-xs-6 col-xs-offset-6 col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9 text-right continue_button"><input type="submit" class="btn btn-primary btn-block" value="{$button.continue}"></div>
+                        <div class="col-xs-6 col-xs-offset-6 col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9 text-right continue_button"><input type="submit" class="btn btn-primary btn-block" value="{$BUTTON_CONTINUE}"></div>
                     {/if}
                 {/if}
             </div>
@@ -60,6 +54,6 @@
         </div>
     </div>
 {if $LIGHTBOX == 'true'}
-    <a href="{$LIGHTBOX_CLOSE}" class="icon_lightbox_close_checkout button_close_lightbox" title="{$button.close}">{$button.close}</a>
+    <a href="{$LIGHTBOX_CLOSE}" class="icon_lightbox_close_checkout button_close_lightbox" title="{$BUTTON_CLOSE}">{$BUTTON_CLOSE}</a>
 </div>
 {/if}
