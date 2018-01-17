@@ -191,8 +191,12 @@ class WirecardCheckoutSeamless_ORIGIN
         } else {
             $_SESSION['wcs_consumer_device_id'] = $consumerDeviceId;
         }
+        $payment_type = $this->_paymenttype;
 
-		return "<script language='JavaScript'>
+        if($payment_type == WirecardCEE_Stdlib_PaymentTypeAbstract::INVOICE && $this->constant("MODULE_PAYMENT_WCP_INVOICE_PROVIDER") == "RatePay" ||
+            $payment_type == WirecardCEE_Stdlib_PaymentTypeAbstract::INSTALLMENT && $this->constant("MODULE_PAYMENT_WCP_INSTALLMENT_PROVIDER") == "RatePay")
+        {
+            return "<script language='JavaScript'>
                 var di = {t:'" . $consumerDeviceId . "',v:'WDWL',l:'Checkout'};
               </script>
               <script type='text/javascript' src='//d.ratepay.com/" . $consumerDeviceId . "/di.js'></script>
@@ -204,6 +208,7 @@ class WirecardCheckoutSeamless_ORIGIN
                 <param name='flashvars' value='t=" . $consumerDeviceId . "&v=WDWL'/>
                 <param name='AllowScriptAccess' value='always'/>
               </object>";
+        }
 	}
 
 
