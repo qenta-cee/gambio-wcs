@@ -191,6 +191,7 @@ class WirecardCheckoutSeamless_ORIGIN
         } else {
             $_SESSION['wcs_consumer_device_id'] = $consumerDeviceId;
         }
+
         $payment_type = $this->_paymenttype;
 
         if($payment_type == WirecardCEE_Stdlib_PaymentTypeAbstract::INVOICE && $this->constant("MODULE_PAYMENT_WCP_INVOICE_PROVIDER") == "RatePay" ||
@@ -209,6 +210,8 @@ class WirecardCheckoutSeamless_ORIGIN
                 <param name='AllowScriptAccess' value='always'/>
               </object>";
         }
+
+        return "";
 	}
 
 
