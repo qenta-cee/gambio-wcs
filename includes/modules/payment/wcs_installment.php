@@ -194,7 +194,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
                 die;
             }
 
-            if (MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT == "on" && $_POST['wcs_installment_payolution_terms'] !== 'on') {
+            if (MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT == "on" && $_POST['wcs_installment_payolution_terms'] !== 'on' && MODULE_PAYMENT_WCS_INSTALLMENT_PROVIDER == 'Payolution') {
                 $_SESSION['gm_error_message'] = $this->_seamless->getText('payolution_terms_error');
                 xtc_redirect(GM_HTTP_SERVER . DIR_WS_CATALOG . 'checkout_payment.php');
                 die;
