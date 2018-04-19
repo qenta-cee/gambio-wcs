@@ -30,12 +30,7 @@
  * Please do not use the plugin if you do not agree to these terms of use!
  */
 
-return Array(
-    'MODULE_NAME'    => 'WirecardCEE_Stdlib',
-    'MODULE_VERSION' => '3.0.3',
-    'DEPENDENCIES'   => array(
-        'SCRIPTING_LANG'         => 'PHP',
-        'SCRIPTING_LANG_VERSION' => '5.2'
-    ),
-    'USE_DEBUG'      => false
-);
+class WirecardCEE_Stdlib_Validate_Exception extends Exception
+{
+
+}
