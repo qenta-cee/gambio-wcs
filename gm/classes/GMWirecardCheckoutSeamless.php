@@ -37,7 +37,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 	/**
 	 * @var string
 	 */
-	protected $_pluginversion = '1.2.5';
+	protected $_pluginversion = '1.2.6';
 
 	/**
 	 * config parameters
@@ -1186,7 +1186,10 @@ class GMWirecardCheckoutSeamless_ORIGIN
 				if ($data['customers_dob'] !== '0000-00-00 00:00:00' && $data['customers_dob'] !== '1000-01-01 00:00:00')
 				{
 					$consumerData->setBirthDate(new DateTime($data['customers_dob']));
-				}
+				} elseif (isset($_SESSION['wcs_birthdate'])) {
+                    $consumerData->setBirthDate(new DateTime($_SESSION['wcs_birthdate']));
+                    unset($_SESSION['wcs_birthdate']);
+                }
 
 				if (strlen($data['customers_vat_id']))
 				{

@@ -8,9 +8,6 @@
             <label>
                 {$module_data.selection}
                 <strong>{$module_data.module}</strong>
-                {if $module_data.description}
-                <br />{$module_data.description}
-                {/if}
             </label>
         </div>
         {if $module_data.id|strpos:'wcs_' === 0 }

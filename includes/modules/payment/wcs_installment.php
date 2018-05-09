@@ -158,7 +158,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 
     function consentCheckbox()
     {
-        $field = "<input class='form-control' type='checkbox' name='wcs_installment_payolution_terms' />";
+        $field = "<input class='form-control' type='checkbox' name='wcs_installment_payolution_terms' style='height: 13px; width: 13px;/>";
 
         $consent_message = preg_replace_callback("/_(.*)_/", function ($matches) {
             if (strlen(MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_MID)) {
@@ -183,6 +183,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
             $day = $_POST['wcs_installment_birthdate_day'];
             $month = $_POST['wcs_installment_birthdate_month'];
             $year = $_POST['wcs_installment_birthdate_year'];
+            $_SESSION['wcs_birthdate'] = $year . '-' . $month . '-' . $day;
 
             $age = (date("md", date("U", mktime(0, 0, 0, $month, $day, $year))) > date("md")
                 ? ((date("Y") - $year) - 1)
