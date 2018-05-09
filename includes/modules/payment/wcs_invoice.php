@@ -182,6 +182,7 @@ class wcs_invoice_ORIGIN extends WirecardCheckoutSeamless
             $day = $_POST['wcs_invoice_birthdate_day'];
             $month = $_POST['wcs_invoice_birthdate_month'];
             $year = $_POST['wcs_invoice_birthdate_year'];
+            $_SESSION['wcs_birthdate'] = $year . '-' . $month . '-' . $day;
 
             $age = (date("md", date("U", mktime(0, 0, 0, $month, $day, $year))) > date("md")
                 ? ((date("Y") - $year) - 1)
