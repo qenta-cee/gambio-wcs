@@ -37,7 +37,7 @@ class GMWirecardCheckoutSeamless_ORIGIN
 	/**
 	 * @var string
 	 */
-	protected $_pluginversion = '1.2.6';
+	protected $_pluginversion = '1.2.7';
 
 	/**
 	 * config parameters
