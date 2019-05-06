@@ -26,6 +26,9 @@ define('TABLE_PAYMENT_WCS', 'payment_wirecard_checkout_seamless');
 
 require_once DIR_FS_DOCUMENT_ROOT . '/gm/classes/GMWirecardCheckoutSeamless.php';
 
+defined('GM_HTTP_SERVER') or define('GM_HTTP_SERVER', HTTP_SERVER);
+define('MODULE_PAYMENT_WCS_WINDOW_NAME', 'wirecardCheckoutSeamlessIFrame');
+
 class WirecardCheckoutSeamless_ORIGIN
 {
 	public    $code;
@@ -63,6 +66,13 @@ class WirecardCheckoutSeamless_ORIGIN
 	 * @var WirecardCEE_QMore_DataStorage_Response_Initiation
 	 */
 	static protected $dataStore = null;
+
+	/**
+	 * caches contents returned from selection() method
+	 * the selection methode may be called twice, for some reasons
+	 * @var
+	 */
+	static protected $_selectionCache;
 
 	/**
 	 * whether datastorage init failed
@@ -103,10 +113,12 @@ class WirecardCheckoutSeamless_ORIGIN
 		$this->info        = $this->constant("MODULE_PAYMENT_{$c}_TEXT_INFO"); // displayed in checkout
 		$this->description = $this->constant("MODULE_PAYMENT_{$c}_TEXT_DESC"); // displayed in admin area
 		$this->sort_order  = $this->constant("MODULE_PAYMENT_{$c}_SORT_ORDER");
-		$this->description .= '<br /><br /><a href="' . GM_HTTP_SERVER . DIR_WS_ADMIN
+		if ($this->constant('DIR_WS_ADMIN') !== null)
+		{
+			$this->description .= '<br /><br /><a href="' . GM_HTTP_SERVER . DIR_WS_ADMIN
 		                      . 'wirecard_checkout_seamless_config.php" class="button" style="margin: auto auto 10px auto; ">'
 		                      . $this->_seamless->getText('configure') . '</a>';
-
+		}
 		$this->enabled = self::constant("MODULE_PAYMENT_{$c}_STATUS") == 'True';
 		define("MODULE_PAYMENT_{$c}_STATUS_TITLE", $this->_seamless->getText('active'));
 		define("MODULE_PAYMENT_{$c}_STATUS_DESC", '');
@@ -286,6 +298,12 @@ class WirecardCheckoutSeamless_ORIGIN
 		}
 
 		$paymentType = $this->_paymenttype;
+
+		// avoid duplicate invocation
+		if (isset(self::$_selectionCache[$paymentType])) {
+			return self::$_selectionCache[$paymentType];
+		}
+
 		if($paymentType == WirecardCEE_Stdlib_PaymentTypeAbstract::MAESTRO
 		   || $paymentType == WirecardCEE_Stdlib_PaymentTypeAbstract::CCARD_MOTO
 		)
@@ -319,7 +337,10 @@ class WirecardCheckoutSeamless_ORIGIN
 			}
 		}
 
-		return array('id' => $this->code, 'module' => $this->title, 'description' => $this->info, 'fields' => $fields);
+		$content = array('id' => $this->code, 'module' => $this->title, 'description' => $this->info, 'fields' => $fields);
+		self::$_selectionCache[$this->_paymenttype] = $content;
+
+		return $content;
 	}
 
 

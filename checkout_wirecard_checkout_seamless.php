@@ -91,7 +91,7 @@ if(isset($_GET['return']))
 }
 else
 {
-	$iFrame = '<iframe name="' . MODULE_PAYMENT_WCP_WINDOW_NAME . '" src="' . $initResponse->getRedirectUrl()
+	$iFrame = '<iframe name="' . MODULE_PAYMENT_WCS_WINDOW_NAME . '" src="' . $initResponse->getRedirectUrl()
 	          . '" width="100%" height="660" border="0" frameborder="0"></iframe>';
 	$smarty->assign('FORM_ACTION', $iFrame);
 	$smarty->assign('CHECKOUT_TITLE', $seamless->getText('confirm_title'));
