@@ -23,7 +23,11 @@
  */
 
 chdir('../../');
+
+require_once('includes/modules/payment/wcs_top.php');
+wcs_preserve_postparams();
 require_once('includes/application_top.php');
+wcs_preserve_postparams(true);
 require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
 
 $seamless = new GMWirecardCheckoutSeamless_ORIGIN();

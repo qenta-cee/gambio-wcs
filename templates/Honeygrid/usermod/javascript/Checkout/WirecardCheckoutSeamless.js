@@ -47,6 +47,10 @@ $(document).ready(function () {
 			checkoutPaymentArea.find('.continue_button').on('click', function (e) {
 
 				var code = checkoutPaymentArea.find("input[name='payment']:radio:checked").val();
+				if (typeof code == "undefined") {
+					code = checkoutPaymentArea.find("input[name='payment']").val();
+				}
+
 				// not a wirecard payment
 				if (!code.match(/^wcs_/))
 					return true;
