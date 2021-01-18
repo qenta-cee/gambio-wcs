@@ -1,0 +1,17 @@
+{
+    "name": "qenta/gambio-qcs",
+    "type": "library",
+    "homepage": "https://qenta-cee.at",
+    "description": "QENTA Checkout Seamless plugin for Gambio",
+    "license": "GPL-3.0",
+    "require": {
+        "php": ">=7.2.0",
+        "qenta/checkout-client-library": "5.0.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    },
+    "config": {
+        "vendor-dir": "ext/qenta"
+    }
+}
