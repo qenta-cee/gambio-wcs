@@ -105,7 +105,7 @@ gx.compatibility.module(
 
                     $.ajax({
                         type:     "POST",
-                        url:      'wirecard_checkout_seamless_backend.php',
+                        url:      'qenta_checkout_seamless_backend.php',
                         dataType: 'json',
                         context:  null,
                         data:     data

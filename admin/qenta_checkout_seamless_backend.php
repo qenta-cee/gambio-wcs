@@ -9,8 +9,8 @@
 
 require_once 'includes/application_top.php';
 
-/** @var GMWirecardCheckoutSeamless_ORIGIN $wcs */
-$wcs = MainFactory::create_object('GMWirecardCheckoutSeamless');
+/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
+$wcs = MainFactory::create_object('GMQentaCheckoutSeamless');
 
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
@@ -47,7 +47,7 @@ switch($_POST['operation'])
 	case 'deposit':
 		if(!isset($_POST['amount']) || $_POST['amount'] <= 0)
 		{
-			$_SESSION['wcs_messages'] = Array($wcs->getText('amount_invalid'));
+			$_SESSION['qcs_messages'] = Array($wcs->getText('amount_invalid'));
 			xtc_db_close();
 			die;
 		}
@@ -65,7 +65,7 @@ switch($_POST['operation'])
 	case 'refund':
 		if(!isset($_POST['amount']) || $_POST['amount'] <= 0)
 		{
-			$_SESSION['wcs_messages'] = Array($wcs->getText('amount_invalid'));
+			$_SESSION['qcs_messages'] = Array($wcs->getText('amount_invalid'));
 			xtc_db_close();
 			die;
 		}
@@ -98,8 +98,8 @@ switch($_POST['operation'])
 
 			switch($_POST['transfertype'])
 			{
-				case WirecardCEE_QMore_BackendClient::$TRANSFER_FUND_TYPE_EXISTING:
-					/** @var WirecardCEE_QMore_Request_Backend_TransferFund_Existing $client */
+				case QentaCEE\QMore\BackendClient::$TRANSFER_FUND_TYPE_EXISTING:
+					/** @var QentaCEE\QMore\Request\Backend\TransferFund $client */
 					if(strlen($payment->customerStatement))
 					{
 						$client->setCustomerStatement($payment->customerStatement);
@@ -109,20 +109,20 @@ switch($_POST['operation'])
 					                     $payment->sourceOrderNumber);
 					break;
 
-				case WirecardCEE_QMore_BackendClient::$TRANSFER_FUND_TYPE_SKIRLLWALLET:
-					/** @var WirecardCEE_QMore_Request_Backend_TransferFund_SkrillWallet $client */
+				case QentaCEE\QMore\BackendClient::$TRANSFER_FUND_TYPE_SKIRLLWALLET:
+					/** @var QentaCEE\QMore\Request\Backend\TransferFund\SkrillWallet $client */
 					$ret = $client->send($payment->amount, $payment->currency, $payment->orderDescription,
 					                     $payment->customerStatement, $payment->consumerEmail);
 					break;
 
-				case WirecardCEE_QMore_BackendClient::$TRANSFER_FUND_TYPE_MONETA:
-					/** @var WirecardCEE_QMore_Request_Backend_TransferFund_Moneta $client */
+				case QentaCEE\QMore\BackendClient::$TRANSFER_FUND_TYPE_MONETA:
+					/** @var QentaCEE\QMore\Request\Backend\TransferFund\Moneta $client */
 					$ret = $client->send($payment->amount, $payment->currency, $payment->orderDescription,
 					                     $payment->customerStatement, $payment->consumerWalletId);
 					break;
 
-				case WirecardCEE_QMore_BackendClient::$TRANSFER_FUND_TYPE_SEPACT:
-					/** @var WirecardCEE_QMore_Request_Backend_TransferFund_SepaCT $client */
+				case QentaCEE\QMore\BackendClient::$TRANSFER_FUND_TYPE_SEPACT:
+					/** @var QentaCEE\QMore\Request\Backend\TransferFund\SepaCT $client */
 					$ret = $client->send($payment->amount, $payment->currency, $payment->orderDescription, $payment->bankAccountOwner,
 					                     $payment->bankBic, $payment->bankAccountIban);
 					break;
@@ -140,7 +140,7 @@ switch($_POST['operation'])
 		break;
 }
 
-/** @var WirecardCEE_QMore_Response_Backend_ResponseAbstract $ret */
+/** @var QentaCEE\QMore\Response\Backend\ResponseAbstract $ret */
 if($ret->getNumberOfErrors() > 0)
 {
 	header('400 Bad Request', true, 400);
@@ -152,7 +152,7 @@ if($ret->getNumberOfErrors() > 0)
 		else
 			$errors[] = html_entity_decode($e->getMessage());
 	}
-	$_SESSION['wcs_messages'] = $errors;
+	$_SESSION['qcs_messages'] = $errors;
 	print json_encode($errors);
 }
 else

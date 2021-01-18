@@ -10,9 +10,9 @@
 require_once 'includes/application_top.php';
 require_once(DIR_FS_ADMIN . 'includes/gm/classes/GMModulesManager.php');
 require_once(DIR_FS_ADMIN . 'includes/gm/gm_modules/gm_modules_structure.php');
-require_once DIR_FS_CATALOG .'/includes/classes/WirecardCheckoutSeamless_Helper.php';
+require_once DIR_FS_CATALOG .'/includes/classes/QentaCheckoutSeamless_Helper.php';
 
-if (WirecardCheckoutSeamless_Helper::checkVersionBelow(25)) {
+if (QentaCheckoutSeamless_Helper::checkVersionBelow(25)) {
 	require_once(DIR_FS_CATALOG . 'includes/classes/class.phpmailer.php');
 }
 
@@ -35,8 +35,8 @@ if(!isset($_SESSION[$messages_ns]))
 	$_SESSION[$messages_ns] = array();
 }
 
-/** @var GMWirecardCheckoutSeamless_ORIGIN $wcs */
-$wcs    = MainFactory::create_object('GMWirecardCheckoutSeamless');
+/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
+$wcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
 $config = $wcs->getConfig();
 
 ob_start();
@@ -75,13 +75,13 @@ ob_start();
                 <table style="margin-bottom:5px" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr class="dataTableHeadingRow">
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
-							<a href="wirecard_checkout_seamless_config.php">##configtype</a>
+							<a href="qenta_checkout_seamless_config.php">##configtype</a>
 						</td>
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
 							##title_transferfund
 						</td>
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
-							<a href="wirecard_checkout_seamless_support.php">##title_support</a>
+							<a href="qenta_checkout_seamless_support.php">##title_support</a>
 						</td>
 					</tr>
 				</table>
@@ -92,7 +92,7 @@ ob_start();
 					<tr class="gx-container">
 						<td style="font-size: 12px; text-align: justify">
 
-								<form id="wcs_config" action="<?php echo PAGE_URL ?>" method="post">
+								<form id="qcs_config" action="<?php echo PAGE_URL ?>" method="post">
 									<table class="gx-configuration" data-gx-extension="visibility_switcher">
 										<tr style="display: none">
 											<td class="dataTableContent_gm configuration-label">
@@ -342,7 +342,7 @@ ob_start();
 
 										$.ajax({
 											type:     "POST",
-											url:      'wirecard_checkout_seamless_backend.php',
+											url:      'qenta_checkout_seamless_backend.php',
 											dataType: 'json',
 											context:  null,
 											data:     data

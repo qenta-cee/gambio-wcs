@@ -11,8 +11,8 @@ require_once 'includes/application_top.php';
 
 define('PAGE_URL', HTTP_SERVER . DIR_WS_ADMIN . basename(__FILE__));
 
-define('WCS_SUPPORT_URL', HTTP_SERVER . DIR_WS_ADMIN . 'wirecard_checkout_seamless_support.php');
-define('WCS_TRANSFERFUND_URL', HTTP_SERVER . DIR_WS_ADMIN . 'wirecard_checkout_seamless_transferfund.php');
+define('WCS_SUPPORT_URL', HTTP_SERVER . DIR_WS_ADMIN . 'qenta_checkout_seamless_support.php');
+define('WCS_TRANSFERFUND_URL', HTTP_SERVER . DIR_WS_ADMIN . 'qenta_checkout_seamless_transferfund.php');
 
 if(isset($_SESSION['coo_page_token']))
 {
@@ -29,13 +29,13 @@ if(!isset($_SESSION[$messages_ns]))
 	$_SESSION[$messages_ns] = array();
 }
 
-if(!isset($_SESSION['wcs_config_values_tmp']))
+if(!isset($_SESSION['qcs_config_values_tmp']))
 {
-	$_SESSION['wcs_config_values_tmp'] = array();
+	$_SESSION['qcs_config_values_tmp'] = array();
 }
 
-/** @var GMWirecardCheckoutSeamless_ORIGIN $wcs */
-$wcs    = MainFactory::create_object('GMWirecardCheckoutSeamless');
+/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
+$wcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
 $config = $wcs->getConfig();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -63,10 +63,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				try
 				{
-					$_SESSION['wcs_config_values_tmp'][$k] = $v;
+					$_SESSION['qcs_config_values_tmp'][$k] = $v;
 					$wcs->validateConfigValue($k, $v, $_POST['wcs']['configtype']);
 				}
-				catch(GMWirecardCheckoutSeamlessException $e)
+				catch(GMQentaCheckoutSeamlessException $e)
 				{
 					$errors[$k] = $e->getMessage();
 				}
@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 				{
 					$wcs->setConfigValue($k, $v);
 				}
-				$_SESSION['wcs_config_values_tmp'] = array();
+				$_SESSION['qcs_config_values_tmp'] = array();
 			}
 		}
 	}
@@ -92,8 +92,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 $messages               = $_SESSION[$messages_ns];
 $_SESSION[$messages_ns] = array();
 
-$tmp_values                        = $_SESSION['wcs_config_values_tmp'];
-$_SESSION['wcs_config_values_tmp'] = array();
+$tmp_values                        = $_SESSION['qcs_config_values_tmp'];
+$_SESSION['qcs_config_values_tmp'] = array();
 $orders_stati                      = $wcs->getOrdersStati();
 
 ob_start();
@@ -135,10 +135,10 @@ ob_start();
 							##configtype
 						</td>
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
-							<a href="wirecard_checkout_seamless_transferfund.php">##title_transferfund</a>
+							<a href="qenta_checkout_seamless_transferfund.php">##title_transferfund</a>
 						</td>
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
-							<a href="wirecard_checkout_seamless_support.php">##title_support</a>
+							<a href="qenta_checkout_seamless_support.php">##title_support</a>
 						</td>
 					</tr>
 				</table>
@@ -153,7 +153,7 @@ ob_start();
 					<tr class="gx-container">
 						<td style="font-size: 12px; text-align: justify">
 
-							<form id="wcs_config" action="<?php echo PAGE_URL ?>" method="post" class="shop-key-form">
+							<form id="qcs_config" action="<?php echo PAGE_URL ?>" method="post" class="shop-key-form">
 								<table class="gx-configuration" data-gx-extension="visibility_switcher">
 									<?php
 									foreach($config as $group => $fields)

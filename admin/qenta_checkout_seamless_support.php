@@ -10,9 +10,9 @@
 require_once 'includes/application_top.php';
 require_once(DIR_FS_ADMIN . 'includes/gm/classes/GMModulesManager.php');
 require_once(DIR_FS_ADMIN . 'includes/gm/gm_modules/gm_modules_structure.php');
-require_once DIR_FS_CATALOG .'/includes/classes/WirecardCheckoutSeamless_Helper.php';
+require_once DIR_FS_CATALOG .'/includes/classes/QentaCheckoutSeamless_Helper.php';
 
-if (WirecardCheckoutSeamless_Helper::checkVersionBelow(25)) {
+if (QentaCheckoutSeamless_Helper::checkVersionBelow(25)) {
 	require_once(DIR_FS_CATALOG . 'includes/classes/class.phpmailer.php');
 }
 
@@ -35,8 +35,8 @@ if(!isset($_SESSION[$messages_ns]))
 	$_SESSION[$messages_ns] = array();
 }
 
-/** @var GMWirecardCheckoutSeamless_ORIGIN $wcs */
-$wcs    = MainFactory::create_object('GMWirecardCheckoutSeamless');
+/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
+$wcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
 $config = $wcs->getConfig();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -80,11 +80,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		$modules      = $coo_module_manager->get_modules_installed();
 		$myModules    = array_filter($modules, function ($m)
 		{
-			return preg_match('/^wcs_/', $m);
+			return preg_match('/^qcs_/', $m);
 		});
 		$otherModules = array_filter($modules, function ($m)
 		{
-			return !preg_match('/^wcs_/', $m);
+			return !preg_match('/^qcs_/', $m);
 		});
 		sort($myModules);
 		sort($otherModules);
@@ -162,10 +162,10 @@ ob_start();
                 <table style="margin-bottom:5px" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr class="dataTableHeadingRow">
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
-							<a href="wirecard_checkout_seamless_config.php">##configtype</a>
+							<a href="qenta_checkout_seamless_config.php">##configtype</a>
 						</td>
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
-							<a href="wirecard_checkout_seamless_transferfund.php">##title_transferfund</a>
+							<a href="qenta_checkout_seamless_transferfund.php">##title_transferfund</a>
 						</td>
 						<td class="dataTableHeadingContentText" style="width:1%; padding-right:20px; white-space: nowrap">
 							##title_support
@@ -183,7 +183,7 @@ ob_start();
 					<tr class="gx-container">
 						<td style="font-size: 12px; text-align: justify">
 
-							<form id="wcs_config" action="<?php echo PAGE_URL ?>" method="post" class="shop-key-form">
+							<form id="qcs_config" action="<?php echo PAGE_URL ?>" method="post" class="shop-key-form">
 								<table class="gx-configuration">
 									<tr style="display: none">
 										<td class="dataTableContent_gm configuration-label">
