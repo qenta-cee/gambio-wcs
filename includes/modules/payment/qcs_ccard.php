@@ -43,17 +43,17 @@ class qcs_ccard_ORIGIN extends QentaCheckoutSeamless_ORIGIN
 		{
 			$content['fields'][] = array(
 				'title' => $this->_seamless->getText('creditcard_cardholder'),
-				'field' => sprintf('<input type="text" class="%s input-text" name="qcs_cardholder" data-wcs-fieldname="cardholdername" autocomplete="off" value=""/>',
+				'field' => sprintf('<input type="text" class="%s input-text" name="qcs_cardholder" data-qcs-fieldname="cardholdername" autocomplete="off" value=""/>',
 				                   $cssClass)
 			);
 		}
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('creditcard_pan'),
-			'field' => sprintf('<input type="text" class="%s input-text" name="qcs_cardnumber" data-wcs-fieldname="pan" autocomplete="off" value=""/>',
+			'field' => sprintf('<input type="text" class="%s input-text" name="qcs_cardnumber" data-qcs-fieldname="pan" autocomplete="off" value=""/>',
 			                   $cssClass)
 		);
 
-		$field = sprintf('<select name="qcs_expirationmonth" class="%s qcs_expirationmonth" data-wcs-fieldname="expirationMonth">',
+		$field = sprintf('<select name="qcs_expirationmonth" class="%s qcs_expirationmonth" data-qcs-fieldname="expirationMonth">',
 		                 $cssClass);
 		for($m = 1; $m <= 12; $m++)
 		{
@@ -61,7 +61,7 @@ class qcs_ccard_ORIGIN extends QentaCheckoutSeamless_ORIGIN
 		}
 		$field .= '</select>&nbsp;';
 
-		$field .= sprintf('<select name="qcs_expirationyear" class="%s qcs_expirationyear" data-wcs-fieldname="expirationYear">',
+		$field .= sprintf('<select name="qcs_expirationyear" class="%s qcs_expirationyear" data-qcs-fieldname="expirationYear">',
 		                  $cssClass);
 		foreach($this->getCreditCardYears() as $y)
 		{
@@ -71,7 +71,7 @@ class qcs_ccard_ORIGIN extends QentaCheckoutSeamless_ORIGIN
 
 		if($this->_seamless->getConfigValue('creditcard_showcvc'))
 		{
-			$field .= sprintf('<div class="label qcs_label_cvc">CVC</div><input type="text" class="%s qcs_cvc input-text" name="qcs_cvc" data-wcs-fieldname="cardverifycode" autocomplete="off" value="" maxlength="4"/>',
+			$field .= sprintf('<div class="label qcs_label_cvc">CVC</div><input type="text" class="%s qcs_cvc input-text" name="qcs_cvc" data-qcs-fieldname="cardverifycode" autocomplete="off" value="" maxlength="4"/>',
 			                  $cssClass);
 		}
 		$content['fields'][] = array(
@@ -81,7 +81,7 @@ class qcs_ccard_ORIGIN extends QentaCheckoutSeamless_ORIGIN
 
 		if($this->_seamless->getConfigValue('creditcard_showissuedate'))
 		{
-			$field = sprintf('<select name="qcs_issuemonth" class="%s qcs_issuemonth" data-wcs-fieldname="issueMonth">',
+			$field = sprintf('<select name="qcs_issuemonth" class="%s qcs_issuemonth" data-qcs-fieldname="issueMonth">',
 			                 $cssClass);
 			for($m = 1; $m <= 12; $m++)
 			{
@@ -89,7 +89,7 @@ class qcs_ccard_ORIGIN extends QentaCheckoutSeamless_ORIGIN
 			}
 			$field .= '</select>&nbsp;';
 
-			$field .= sprintf('<select name="qcs_issueyear" class="%s qcs_issueyear" data-wcs-fieldname="issueYear">',
+			$field .= sprintf('<select name="qcs_issueyear" class="%s qcs_issueyear" data-qcs-fieldname="issueYear">',
 			                  $cssClass);
 			foreach($this->getCreditCardIssueYears() as $y)
 			{
@@ -106,7 +106,7 @@ class qcs_ccard_ORIGIN extends QentaCheckoutSeamless_ORIGIN
 		{
 			$content['fields'][] = array(
 				'title' => $this->_seamless->getText('creditcard_issuenumber'),
-				'field' => sprintf('<input type="text" class="%s qcs_issuenumber input-text" name="qcs_issuenumber" data-wcs-fieldname="issueNumber" autocomplete="off" value="" maxlength="2"/>',
+				'field' => sprintf('<input type="text" class="%s qcs_issuenumber input-text" name="qcs_issuenumber" data-qcs-fieldname="issueNumber" autocomplete="off" value="" maxlength="2"/>',
 				                   $cssClass)
 			);
 		}

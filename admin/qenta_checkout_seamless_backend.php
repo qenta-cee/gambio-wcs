@@ -9,8 +9,8 @@
 
 require_once 'includes/application_top.php';
 
-/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
-$wcs = MainFactory::create_object('GMQentaCheckoutSeamless');
+/** @var GMQentaCheckoutSeamless_ORIGIN $qcs */
+$qcs = MainFactory::create_object('GMQentaCheckoutSeamless');
 
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
@@ -40,48 +40,48 @@ foreach($payment as $p => $v)
 	                          FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_ENCODE_AMP);
 }
 
-$wcs->log(print_r($_POST, true));
+$qcs->log(print_r($_POST, true));
 
 switch($_POST['operation'])
 {
 	case 'deposit':
 		if(!isset($_POST['amount']) || $_POST['amount'] <= 0)
 		{
-			$_SESSION['qcs_messages'] = Array($wcs->getText('amount_invalid'));
+			$_SESSION['qcs_messages'] = Array($qcs->getText('amount_invalid'));
 			xtc_db_close();
 			die;
 		}
-		$ret = $wcs->deposit($payment->orderNumber, $_POST['amount'], $payment->currency);
+		$ret = $qcs->deposit($payment->orderNumber, $_POST['amount'], $payment->currency);
 		break;
 
 	case 'depositreversal':
-		$ret = $wcs->depositReversal($payment->orderNumber, $payment->paymentNumber);
+		$ret = $qcs->depositReversal($payment->orderNumber, $payment->paymentNumber);
 		break;
 
 	case 'approvereversal':
-		$ret = $wcs->approveReversal($payment->orderNumber);
+		$ret = $qcs->approveReversal($payment->orderNumber);
 		break;
 
 	case 'refund':
 		if(!isset($_POST['amount']) || $_POST['amount'] <= 0)
 		{
-			$_SESSION['qcs_messages'] = Array($wcs->getText('amount_invalid'));
+			$_SESSION['qcs_messages'] = Array($qcs->getText('amount_invalid'));
 			xtc_db_close();
 			die;
 		}
 
-		$ret = $wcs->refund($payment->orderNumber, $_POST['amount'], $payment->currency);
+		$ret = $qcs->refund($payment->orderNumber, $_POST['amount'], $payment->currency);
 		break;
 
 	case 'refundreversal':
-		$ret = $wcs->refundReversal($payment->orderNumber, $payment->creditNumber);
+		$ret = $qcs->refundReversal($payment->orderNumber, $payment->creditNumber);
 		break;
 
 	case 'transferfund':
 
 		try
 		{
-			$client = $wcs->transferfund($_POST['transfertype']);
+			$client = $qcs->transferfund($_POST['transfertype']);
 
 			if(strlen($payment->orderNumber))
 			{

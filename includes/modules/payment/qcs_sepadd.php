@@ -29,15 +29,15 @@ class qcs_sepadd_ORIGIN extends QentaCheckoutSeamless
 
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('sepa_iban'),
-			'field' => '<input type="text" class="qcs_sepadd input-text" name="qcs_sepaddiban" data-wcs-fieldname="bankAccountIban" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_sepadd input-text" name="qcs_sepaddiban" data-qcs-fieldname="bankAccountIban" autocomplete="off" value=""/>'
 		);
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('sepa_bic'),
-			'field' => '<input type="text" class="qcs_sepadd input-text qcs_sepaddbic" name="qcs_sepaddbic" data-wcs-fieldname="bankBic" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_sepadd input-text qcs_sepaddbic" name="qcs_sepaddbic" data-qcs-fieldname="bankBic" autocomplete="off" value=""/>'
 		);
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('sepa_accountowner'),
-			'field' => '<input type="text" class="qcs_sepadd input-text" name="qcs_sepaddaccountowner" data-wcs-fieldname="accountOwner" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_sepadd input-text" name="qcs_sepaddaccountowner" data-qcs-fieldname="accountOwner" autocomplete="off" value=""/>'
 		);
 
 		return $content;

@@ -29,15 +29,15 @@ class qcs_giropay_ORIGIN extends QentaCheckoutSeamless
 
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('giropay_banknumber'),
-			'field' => '<input type="text" class="qcs_giropay input-text" name="qcs_giropaybanknumber" data-wcs-fieldname="bankNumber" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_giropay input-text" name="qcs_giropaybanknumber" data-qcs-fieldname="bankNumber" autocomplete="off" value=""/>'
 		);
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('giropay_accountowner'),
-			'field' => '<input type="text" class="qcs_giropay input-text" name="qcs_giropayaccountowner" data-wcs-fieldname="accountOwner" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_giropay input-text" name="qcs_giropayaccountowner" data-qcs-fieldname="accountOwner" autocomplete="off" value=""/>'
 		);
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('giropay_bankaccount'),
-			'field' => '<input type="text" class="qcs_giropay input-text" name="qcs_giropaybankaccount" data-wcs-fieldname="bankAccount" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_giropay input-text" name="qcs_giropaybankaccount" data-qcs-fieldname="bankAccount" autocomplete="off" value=""/>'
 		);
 
 		return $content;

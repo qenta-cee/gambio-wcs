@@ -11,8 +11,8 @@ require_once 'includes/application_top.php';
 
 define('PAGE_URL', HTTP_SERVER . DIR_WS_ADMIN . basename(__FILE__));
 
-define('WCS_SUPPORT_URL', HTTP_SERVER . DIR_WS_ADMIN . 'qenta_checkout_seamless_support.php');
-define('WCS_TRANSFERFUND_URL', HTTP_SERVER . DIR_WS_ADMIN . 'qenta_checkout_seamless_transferfund.php');
+define('QCS_SUPPORT_URL', HTTP_SERVER . DIR_WS_ADMIN . 'qenta_checkout_seamless_support.php');
+define('QCS_TRANSFERFUND_URL', HTTP_SERVER . DIR_WS_ADMIN . 'qenta_checkout_seamless_transferfund.php');
 
 if(isset($_SESSION['coo_page_token']))
 {
@@ -34,9 +34,9 @@ if(!isset($_SESSION['qcs_config_values_tmp']))
 	$_SESSION['qcs_config_values_tmp'] = array();
 }
 
-/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
-$wcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
-$config = $wcs->getConfig();
+/** @var GMQentaCheckoutSeamless_ORIGIN $qcs */
+$qcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
+$config = $qcs->getConfig();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -46,8 +46,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		try
 		{
-			$wcs->testConfig();
-			$_SESSION[$messages_ns] = array($wcs->getText('configtest_ok'));
+			$qcs->testConfig();
+			$_SESSION[$messages_ns] = array($qcs->getText('configtest_ok'));
 		}
 		catch(Exception $e)
 		{
@@ -56,15 +56,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 	else
 	{
-		if(isset($_POST['wcs']) && is_array($_POST['wcs']))
+		if(isset($_POST['qcs']) && is_array($_POST['qcs']))
 		{
 			$errors = array();
-			foreach($_POST['wcs'] as $k => $v)
+			foreach($_POST['qcs'] as $k => $v)
 			{
 				try
 				{
 					$_SESSION['qcs_config_values_tmp'][$k] = $v;
-					$wcs->validateConfigValue($k, $v, $_POST['wcs']['configtype']);
+					$qcs->validateConfigValue($k, $v, $_POST['qcs']['configtype']);
 				}
 				catch(GMQentaCheckoutSeamlessException $e)
 				{
@@ -78,9 +78,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			}
 			else
 			{
-				foreach($_POST['wcs'] as $k => $v)
+				foreach($_POST['qcs'] as $k => $v)
 				{
-					$wcs->setConfigValue($k, $v);
+					$qcs->setConfigValue($k, $v);
 				}
 				$_SESSION['qcs_config_values_tmp'] = array();
 			}
@@ -94,7 +94,7 @@ $_SESSION[$messages_ns] = array();
 
 $tmp_values                        = $_SESSION['qcs_config_values_tmp'];
 $_SESSION['qcs_config_values_tmp'] = array();
-$orders_stati                      = $wcs->getOrdersStati();
+$orders_stati                      = $qcs->getOrdersStati();
 
 ob_start();
 ?>
@@ -143,7 +143,7 @@ ob_start();
 					</tr>
 				</table>
 
-				<div class="message_stack_container breakpoint-small" id="wcs-message-container">
+				<div class="message_stack_container breakpoint-small" id="qcs-message-container">
 					<?php foreach($messages as $msg): ?>
 						<div class="alert alert-success breakpoint-small"><?php echo $msg ?></div>
 					<?php endforeach; ?>
@@ -183,7 +183,7 @@ ob_start();
 											switch($opts['type'])
 											{
 												case 'order_status':
-													printf('<select name="wcs[%s]" style="%s" class="%s">', $field,
+													printf('<select name="qcs[%s]" style="%s" class="%s">', $field,
 														$style, $cssClass);
 													foreach($orders_stati as $status_id => $name)
 													{
@@ -195,7 +195,7 @@ ob_start();
 													break;
 
 												case 'select':
-													printf('<select name="wcs[%s]" style="%s" class="%s">', $field,
+													printf('<select name="qcs[%s]" style="%s" class="%s">', $field,
 														$style, $cssClass);
 													foreach($opts['options'] as $v => $lbl)
 													{
@@ -208,16 +208,16 @@ ob_start();
 													break;
 
 												case 'checkbox':
-													printf('<input name="wcs[%s]" type="hidden" value="0"/>',
+													printf('<input name="qcs[%s]" type="hidden" value="0"/>',
 														$field);
 
-													printf('<div class="gx-container checkbox-switch-wrapper"><div data-gx-widget="checkbox"><input id="%s" name="wcs[%s]" type="%s" value="1" style="%s" class="%s" %s/></div></div>',
+													printf('<div class="gx-container checkbox-switch-wrapper"><div data-gx-widget="checkbox"><input id="%s" name="qcs[%s]" type="%s" value="1" style="%s" class="%s" %s/></div></div>',
 														$field, $field, $opts['type'], $style, $cssClass,
 														$value ? 'checked="checked"' : '');
 													break;
 
 												default:
-													printf('<input id="%s" name="wcs[%s]" type="%s" value="%s" style="%s" class="pull-left %s"/>',
+													printf('<input id="%s" name="qcs[%s]" type="%s" value="%s" style="%s" class="pull-left %s"/>',
 														$field, $field, $opts['type'], htmlspecialchars($value),
 														$style, $cssClass);
 											}
@@ -227,9 +227,9 @@ ob_start();
 												printf('<a href="%s" target="_blank">', $opts['docref']);
 											}
 
-											if(strlen($wcs->getText($field . '_desc')))
+											if(strlen($qcs->getText($field . '_desc')))
 											{
-												printf('<span class="tooltip-icon" data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">%s</span>', $wcs->getText($field . '_desc'));
+												printf('<span class="tooltip-icon" data-gx-widget="tooltip_icon" data-tooltip_icon-type="info">%s</span>', $qcs->getText($field . '_desc'));
 											}
 
 											if(isset($opts['docref']))
@@ -248,7 +248,7 @@ ob_start();
 									?>
 								</table>
 								<div class="grid" style="margin-top: 24px">
-									<?php print $wcs->getVersion(); ?>
+									<?php print $qcs->getVersion(); ?>
 									<?php echo xtc_draw_hidden_field('page_token', $t_page_token); ?>
 									<input type="submit" class="button btn btn-primary pull-right" name="saveconfig" value="##saveconfig" />
 									<input type="submit" class="button btn btn-primary pull-right" name="testconfig" value="##testconfig" />
@@ -278,6 +278,6 @@ ob_start();
 require(DIR_WS_INCLUDES . 'application_bottom.php');
 
 $content = ob_get_clean();
-$content = $wcs->replaceLanguagePlaceholders($content);
+$content = $qcs->replaceLanguagePlaceholders($content);
 echo $content;
 

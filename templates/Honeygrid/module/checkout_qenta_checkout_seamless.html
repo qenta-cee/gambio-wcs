@@ -1,0 +1,44 @@
+{*
+* Shop System Plugins
+* - Terms of use can be found under
+* https://guides.qenta.com/shop_plugins:info
+* - License can be found under:
+* https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
+*}
+
+
+{if $LIGHTBOX == 'true'}<div id="lightbox_content" style="display:none">{/if}
+    <div class="order_confirm{if $LIGHTBOX == 'true'} lightbox_block{/if}">
+        <h1>
+            {$CHECKOUT_TITLE}
+        </h1>
+    
+        {$FORM_ACTION}
+    
+        <div id="content_qenta_checkout_page">
+            <div class="heading_success">
+                {$CHECKOUT_HEADER}
+            </div>
+            <div class="content">
+                {$CHECKOUT_CONTENT}
+            </div>
+            {if $IFRAME != 'true'}
+                
+                
+            <div class="row">
+                {if !$NC_SUCCESS_INFO}
+                    {if $FORM_ACTION == ''}
+                        <div class="col-xs-6 col-xs-offset-6 col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9 text-right continue_button"><a href="shopping_cart.php" class="btn btn-primary btn-block">{$BUTTON_CONTINUE}</a></div>
+                    {else}
+                        <div class="col-xs-6 col-xs-offset-6 col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9 text-right continue_button"><input type="submit" class="btn btn-primary btn-block" value="{$BUTTON_CONTINUE}"></div>
+                    {/if}
+                {/if}
+            </div>
+            {/if}
+            {$FORM_END}
+        </div>
+    </div>
+{if $LIGHTBOX == 'true'}
+    <a href="{$LIGHTBOX_CLOSE}" class="icon_lightbox_close_checkout button_close_lightbox" title="{$BUTTON_CLOSE}">{$BUTTON_CLOSE}</a>
+</div>
+{/if}

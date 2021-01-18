@@ -35,9 +35,9 @@ if(!isset($_SESSION[$messages_ns]))
 	$_SESSION[$messages_ns] = array();
 }
 
-/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
-$wcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
-$config = $wcs->getConfig();
+/** @var GMQentaCheckoutSeamless_ORIGIN $qcs */
+$qcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
+$config = $qcs->getConfig();
 
 ob_start();
 ?>
@@ -86,7 +86,7 @@ ob_start();
 					</tr>
 				</table>
 
-				<div class="message_stack_container breakpoint-small" id="wcs-message-container"></div>
+				<div class="message_stack_container breakpoint-small" id="qcs-message-container"></div>
 
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="breakpoint-small multi-table-wrapper">
 					<tr class="gx-container">
@@ -107,9 +107,9 @@ ob_start();
 												##transfer_type</a>
 											</td>
 											<td class="dataTableContent_gm">
-												<select id="wcs-transfertype" name="transfertype">
+												<select id="qcs-transfertype" name="transfertype">
 													<?php
-													foreach($wcs->getTransferTypes() as $v => $lbl)
+													foreach($qcs->getTransferTypes() as $v => $lbl)
 													{
 														printf('<option value="%s">%s</option>',
 															htmlspecialchars($v), htmlspecialchars($lbl));
@@ -117,7 +117,7 @@ ob_start();
 													?>
 												</select>
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/backend:transferfund#existingorder" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/back-end_operations:transaction-based:transferfund#existingorder" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -126,9 +126,9 @@ ob_start();
 												##currency
 											</td>
 											<td class="dataTableContent_gm">
-												<select id="wcs-currency" name="currency">
+												<select id="qcs-currency" name="currency">
 													<?php
-													foreach($wcs->getCurrencies() as $v => $lbl)
+													foreach($qcs->getCurrencies() as $v => $lbl)
 													{
 														printf('<option value="%s">%s</option>',
 															htmlspecialchars($v), htmlspecialchars($lbl));
@@ -136,7 +136,7 @@ ob_start();
 													?>
 												</select>
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#currency" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#currency" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -145,31 +145,31 @@ ob_start();
 												##amount<span class="fieldRequired">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-amount" name="amount" />
+												<input class="pull-left" type="text" id="qcs-amount" name="amount" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#amount" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#amount" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
 										<tr class="visibility_switcher">
 											<td class="dataTableContent_gm configuration-label">
-												##orderdescription<span class="fieldRequired" id="wcs-orderdescription-required">##field_required</span>
+												##orderdescription<span class="fieldRequired" id="qcs-orderdescription-required">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-orderdescription" name="orderdescription" />
+												<input class="pull-left" type="text" id="qcs-orderdescription" name="orderdescription" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#orderdescription" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#orderdescription" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
 										<tr class="visibility_switcher">
 											<td class="dataTableContent_gm configuration-label">
-												##customerstatement<span class="fieldRequired" id="wcs-customerstatement-required" style="display: none;">##field_required</span>
+												##customerstatement<span class="fieldRequired" id="qcs-customerstatement-required" style="display: none;">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-customerstatement" name="customerstatement" />
+												<input class="pull-left" type="text" id="qcs-customerstatement" name="customerstatement" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#customerstatement" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#customerstatement" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -178,7 +178,7 @@ ob_start();
 												##creditnumber
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-creditnumber" name="creditnumber" />
+												<input class="pull-left" type="text" id="qcs-creditnumber" name="creditnumber" />
 											</td>
 										</tr>
 										<tr class="visibility_switcher">
@@ -186,9 +186,9 @@ ob_start();
 												##ordernumber
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-ordernumber" name="ordernumber" />
+												<input class="pull-left" type="text" id="qcs-ordernumber" name="ordernumber" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#ordernumber" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#ordernumber" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -197,9 +197,9 @@ ob_start();
 												##orderreference
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-orderreference" name="orderreference" />
+												<input class="pull-left" type="text" id="qcs-orderreference" name="orderreference" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#orderreference" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#orderreference" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -213,9 +213,9 @@ ob_start();
 												##sourceordernumber<span class="fieldRequired">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-sourceordernumber" name="sourceordernumber" />
+												<input class="pull-left" type="text" id="qcs-sourceordernumber" name="sourceordernumber" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#ordernumber" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#ordernumber" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -229,9 +229,9 @@ ob_start();
 												##consumeremail<span class="fieldRequired">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-consumeremail" name="consumeremail" />
+												<input class="pull-left" type="text" id="qcs-consumeremail" name="consumeremail" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/request_parameters#consumer_billing_data" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/request_parameters#consumer_billing_data" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -245,9 +245,9 @@ ob_start();
 												##consumerwalletid<span class="fieldRequired">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-consumerwalletid" name="consumerwalletid" />
+												<input class="pull-left" type="text" id="qcs-consumerwalletid" name="consumerwalletid" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/backend:transferfund#moneta" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/back-end_operations:transaction-based:transferfund#moneta" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -261,9 +261,9 @@ ob_start();
 												##bankaccountowner<span class="fieldRequired">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-bankaccountowner" name="bankaccountowner" />
+												<input class="pull-left" type="text" id="qcs-bankaccountowner" name="bankaccountowner" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/backend:transferfund#sepa-ct" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/back-end_operations:transaction-based:transferfund#sepa-ct" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -272,9 +272,9 @@ ob_start();
 												##bankbic<span class="fieldRequired">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-bankbic" name="bankbic" />
+												<input class="pull-left" type="text" id="qcs-bankbic" name="bankbic" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/backend:transferfund#sepa-ct" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/back-end_operations:transaction-based:transferfund#sepa-ct" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
@@ -283,22 +283,22 @@ ob_start();
 												##bankaccountiban<span class="fieldRequired">##field_required</span>
 											</td>
 											<td class="dataTableContent_gm">
-												<input class="pull-left" type="text" id="wcs-bankaccountiban" name="bankaccountiban" />
+												<input class="pull-left" type="text" id="qcs-bankaccountiban" name="bankaccountiban" />
 												<span class="tooltip-icon" style="visibility: hidden;">
-													<a href="https://integration.wirecard.at/doku.php/backend:transferfund#sepa-ct" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
+													<a href="https://guides.qenta.com/back-end_operations:transaction-based:transferfund#sepa-ct" target="_blank" class="gx-container tooltip_icon info"><i class="fa fa-info-circle" style="font-size: 24px;"></i></a>
 												</span>
 											</td>
 										</tr>
 									</table>
 									<div class="grid" style="margin-top: 24px">
-										<?php print $wcs->getVersion(); ?>
+										<?php print $qcs->getVersion(); ?>
 										<?php echo xtc_draw_hidden_field('page_token', $t_page_token); ?>
-										<input type="submit" id="wcs-transfer-send" class="button btn btn-primary pull-right" name="sendrequest" value="##transfer_execute" />
+										<input type="submit" id="qcs-transfer-send" class="button btn btn-primary pull-right" name="sendrequest" value="##transfer_execute" />
 									</div>
 								</form>
 							<script type="text/javascript">
 								$(function () {
-									$('#wcs-transfertype').on('change', function (evt) {
+									$('#qcs-transfertype').on('change', function (evt) {
 										var fieldsetId = 'fields-' + this.value.toLowerCase();
 										$('.transferfund-fields').each(function (index, fieldset) {
 											if ($(fieldset).attr('id') == fieldsetId) {
@@ -308,35 +308,35 @@ ob_start();
 											}
 
 											if (fieldsetId == 'fields-existingorder' || fieldsetId == 'fields-sepa-ct') {
-												$('#wcs-customerstatement-required').css('display', 'none');
+												$('#qcs-customerstatement-required').css('display', 'none');
 											} else {
-												$('#wcs-customerstatement-required').css('display', 'inline');
+												$('#qcs-customerstatement-required').css('display', 'inline');
 											}
 										});
 
 
 									});
 
-									$('#wcs-transfer-send').on('click', function (evt) {
+									$('#qcs-transfer-send').on('click', function (evt) {
 
 										var payment = {
-											amount:            $('#wcs-amount').val(),
-											currency:          $('#wcs-currency').val(),
-											orderDescription:  $('#wcs-orderdescription').val(),
-											customerStatement: $('#wcs-customerstatement').val(),
-											sourceOrderNumber: $('#wcs-sourceordernumber').val(),
-											consumerEmail:     $('#wcs-consumeremail').val(),
-											consumerWalletId:  $('#wcs-consumerwalletid').val(),
-											orderNumber:       $('#wcs-ordernumber').val(),
-											creditNumber:      $('#wcs-creditnumber').val(),
-											orderReference:    $('#wcs-orderreference').val(),
-											bankAccountOwner:  $('#wcs-bankaccountowner').val(),
-											bankBic:           $('#wcs-bankbic').val(),
-											bankAccountIban:   $('#wcs-bankaccountiban').val()
+											amount:            $('#qcs-amount').val(),
+											currency:          $('#qcs-currency').val(),
+											orderDescription:  $('#qcs-orderdescription').val(),
+											customerStatement: $('#qcs-customerstatement').val(),
+											sourceOrderNumber: $('#qcs-sourceordernumber').val(),
+											consumerEmail:     $('#qcs-consumeremail').val(),
+											consumerWalletId:  $('#qcs-consumerwalletid').val(),
+											orderNumber:       $('#qcs-ordernumber').val(),
+											creditNumber:      $('#qcs-creditnumber').val(),
+											orderReference:    $('#qcs-orderreference').val(),
+											bankAccountOwner:  $('#qcs-bankaccountowner').val(),
+											bankBic:           $('#qcs-bankbic').val(),
+											bankAccountIban:   $('#qcs-bankaccountiban').val()
 										};
 										var data = {
 											operation:    'transferfund',
-											transfertype: $('#wcs-transfertype').val(),
+											transfertype: $('#qcs-transfertype').val(),
 											payment:      JSON.stringify(payment)
 										};
 
@@ -348,15 +348,15 @@ ob_start();
 											data:     data
 										}).then(function (data, textStatus, jqXHR) {
 
-											var div = $(document.createElement('div')).addClass('alert alert-success breakpoint-small').text(<?php echo json_encode($wcs->getText('transferfund_ok')) ?>);
-											$('#wcs-message-container').empty().append(div);
+											var div = $(document.createElement('div')).addClass('alert alert-success breakpoint-small').text(<?php echo json_encode($qcs->getText('transferfund_ok')) ?>);
+											$('#qcs-message-container').empty().append(div);
 
 										}, function (jqXHR, textStatus, errorThrown) {
-											$('#wcs-message-container').empty();
+											$('#qcs-message-container').empty();
 											$.each(jqXHR.responseJSON, function (idx, txt) {
 												var div = $(document.createElement('div')).addClass('alert alert-danger breakpoint-small').text(txt);
 
-												$('#wcs-message-container').append(div);
+												$('#qcs-message-container').append(div);
 											});
 										});
 
@@ -388,6 +388,6 @@ ob_start();
 require(DIR_WS_INCLUDES . 'application_bottom.php');
 
 $content = ob_get_clean();
-$content = $wcs->replaceLanguagePlaceholders($content);
+$content = $qcs->replaceLanguagePlaceholders($content);
 echo $content;
 

@@ -1,0 +1,56 @@
+/**
+ * Shop System Plugins
+ * - Terms of use can be found under
+ * https://guides.qenta.com/shop_plugins:info
+ * - License can be found under:
+ * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
+*/
+
+#checkout_payment .qcs_label_cvc {
+	width: 40px;
+	padding-left: 20px;
+	color: #333;
+	font-weight: normal;
+	font-size: 13px;
+}
+
+.order_payment iframe {
+	background: none;
+}
+
+#checkout_payment .qcs_cvc {
+	width: 50px;
+	display: inline-block;
+
+}
+
+#checkout_payment .qcs_issuenumber {
+	width: 50px;
+}
+
+#checkout_payment .qcs_expirationmonth {
+	width: 50px;
+}
+
+#checkout_payment .qcs_expirationyear {
+	width: 70px;
+}
+
+#checkout_payment .qcs_issuemonth {
+	width: 50px;
+}
+
+#checkout_payment .qcs_issueyear {
+	width: 70px;
+}
+
+#checkout_payment .qcs_issuenumber {
+	width: 30px;
+}
+
+#checkout_payment .qcs_sepaddbic {
+	width: 100px;
+}
+
+
+

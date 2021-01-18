@@ -42,7 +42,7 @@ threatening, offensive, or harmful.
 ## Scope
 
 This Code Of Conduct applies to all open source projects published by
-Wirecard AG, including the issue tracker of those projects.
+Qenta AG, including the issue tracker of those projects.
 
 ## Enforcement
 
@@ -53,9 +53,3 @@ is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an incident.
 
 ## Attribution
-
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
-available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
-
-[homepage]: https://www.contributor-covenant.org
-[email]: mailto:shop-systems-support@wirecard.com

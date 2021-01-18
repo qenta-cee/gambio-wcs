@@ -29,7 +29,7 @@ class qcs_voucher_ORIGIN extends QentaCheckoutSeamless
 
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('voucher_voucherid'),
-			'field' => '<input type="text" class="qcs_voucher input-text" name="qcs_voucherid" data-wcs-fieldname="voucherId" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_voucher input-text" name="qcs_voucherid" data-qcs-fieldname="voucherId" autocomplete="off" value=""/>'
 		);
 
 		return $content;

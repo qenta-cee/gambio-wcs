@@ -29,7 +29,7 @@ class qcs_pbx_ORIGIN extends QentaCheckoutSeamless
 
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('paybox_payernumber'),
-			'field' => '<input type="text" class="qcs_pbx input-text" name="qcs_payboxpayernumber" data-wcs-fieldname="payerPayboxNumber" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_pbx input-text" name="qcs_payboxpayernumber" data-qcs-fieldname="payerPayboxNumber" autocomplete="off" value=""/>'
 		);
 
 		return $content;

@@ -35,9 +35,9 @@ if(!isset($_SESSION[$messages_ns]))
 	$_SESSION[$messages_ns] = array();
 }
 
-/** @var GMQentaCheckoutSeamless_ORIGIN $wcs */
-$wcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
-$config = $wcs->getConfig();
+/** @var GMQentaCheckoutSeamless_ORIGIN $qcs */
+$qcs    = MainFactory::create_object('GMQentaCheckoutSeamless');
+$config = $qcs->getConfig();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -47,19 +47,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		if(!filter_var($_POST['to'], FILTER_VALIDATE_EMAIL))
 		{
-			$_SESSION[$messages_ns] = array(sprintf($wcs->getText('email_invalid'), $wcs->getText('support_to')));
+			$_SESSION[$messages_ns] = array(sprintf($qcs->getText('email_invalid'), $qcs->getText('support_to')));
 			xtc_redirect(PAGE_URL);
 		}
 		if(!filter_var($_POST['from'], FILTER_VALIDATE_EMAIL))
 		{
-			$_SESSION[$messages_ns] = array(sprintf($wcs->getText('email_invalid'), $wcs->getText('support_from')));
+			$_SESSION[$messages_ns] = array(sprintf($qcs->getText('email_invalid'), $qcs->getText('support_from')));
 			xtc_redirect(PAGE_URL);
 		}
 
 		if(strlen($_POST['reply_to']) && !filter_var($_POST['reply_to'], FILTER_VALIDATE_EMAIL))
 		{
 			$_SESSION[$messages_ns] = array(
-				sprintf($wcs->getText('email_invalid'), $wcs->getText('support_reply_to'))
+				sprintf($qcs->getText('email_invalid'), $qcs->getText('support_reply_to'))
 			);
 			xtc_redirect(PAGE_URL);
 		}
@@ -69,11 +69,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		$to       = $_POST['to'];
 		$from     = $_POST['from'];
 
-		$body .= sprintf("\n\n%s\n\n", $wcs->getText('support_pluginconfig'));
-		$body .= $wcs->getVersion();
+		$body .= sprintf("\n\n%s\n\n", $qcs->getText('support_pluginconfig'));
+		$body .= $qcs->getVersion();
 		$body .= "\n\n";
-		$body .= $wcs->getConfigString();
-		$body .= sprintf("\n\n%s\n\n", $wcs->getText('support_installed_wcs'));
+		$body .= $qcs->getConfigString();
+		$body .= sprintf("\n\n%s\n\n", $qcs->getText('support_installed_qcs'));
 		/** @var GMModuleManager_ORIGIN $coo_module_manager */
 		$coo_module_manager = new GMModuleManager('payment');
 
@@ -102,7 +102,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			$body .= "\n";
 		}
 
-		$body .= sprintf("\n%s\n", $wcs->getText('support_installed_modules'));
+		$body .= sprintf("\n%s\n", $qcs->getText('support_installed_modules'));
 
 		foreach($otherModules as $m)
 		{
@@ -113,11 +113,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		                        htmlspecialchars($body));
 
 		// use default from name, if STORE_OWNER is not configured
-		$from_name = strlen(STORE_OWNER) ? STORE_OWNER : 'gambio wcs';
-		xtc_php_mail($from, $from_name, $to, 'wirecard', null, $reply_to, '', null, null, $wcs->getText('support_subject'),
+		$from_name = strlen(STORE_OWNER) ? STORE_OWNER : 'gambio qcs';
+		xtc_php_mail($from, $from_name, $to, 'qenta', null, $reply_to, '', null, null, $qcs->getText('support_subject'),
 		             $bodyHtml, $body);
 
-		$_SESSION[$messages_ns] = array($wcs->getText('support_send_ok'));
+		$_SESSION[$messages_ns] = array($qcs->getText('support_send_ok'));
 	}
 
 	xtc_redirect(PAGE_URL);
@@ -173,7 +173,7 @@ ob_start();
 					</tr>
 				</table>
 
-				<div class="message_stack_container breakpoint-small" id="wcs-message-container">
+				<div class="message_stack_container breakpoint-small" id="qcs-message-container">
 					<?php foreach($messages as $msg): ?>
 						<div class="alert alert-success breakpoint-small"><?php echo $msg ?></div>
 					<?php endforeach; ?>
@@ -198,14 +198,7 @@ ob_start();
 											##support_to</a>
 										</td>
 										<td class="dataTableContent_gm">
-											<select id="wcs-to"	name="to" style="width: 290px;">
-												<option value="support.at@wirecard.com">
-													support.at@wirecard.com
-												</option>
-												<option value="support.de@wirecard.com">
-													support.de@wirecard.com
-												</option>
-											</select>
+                                            <input type="text" name="to" id="qcs-to" style="width: 290px" disabled="disabled" value="support@qenta.com"/>
 										</td>
 									</tr>
 									<tr>
@@ -213,7 +206,7 @@ ob_start();
 											##support_reply_to
 										</td>
 										<td class="dataTableContent_gm">
-											<input class="pull-left" type="text" id="wcs-reply" style="width: 290px;" name="reply_to" />
+											<input class="pull-left" type="text" id="qcs-reply" style="width: 290px;" name="reply_to" />
 										</td>
 									</tr>
 									<tr class="visibility_switcher">
@@ -221,7 +214,7 @@ ob_start();
 											##support_from
 										</td>
 										<td class="dataTableContent_gm">
-											<input class="pull-left" type="text" id="wcs-from" name="from" style="width: 290px;" value="<?php echo EMAIL_FROM ?>" />
+											<input class="pull-left" type="text" id="qcs-from" name="from" style="width: 290px;" value="<?php echo EMAIL_FROM ?>" />
 										</td>
 									</tr>
 									<tr class="visibility_switcher">
@@ -229,14 +222,14 @@ ob_start();
 											##support_description
 										</td>
 										<td class="dataTableContent_gm">
-											<textarea id="wcs-description" name="description" style="width: 290px; height: 290px;"></textarea>
+											<textarea id="qcs-description" name="description" style="width: 290px; height: 290px;"></textarea>
 										</td>
 									</tr>
 								</table>
 								<div class="grid" style="margin-top: 24px">
-									<?php print $wcs->getVersion(); ?>
+									<?php print $qcs->getVersion(); ?>
 									<?php echo xtc_draw_hidden_field('page_token', $t_page_token); ?>
-									<input type="submit" id="wcs-transfer-send" class="button btn btn-primary pull-right" name="sendrequest" value="##support_request_send" />
+									<input type="submit" id="qcs-transfer-send" class="button btn btn-primary pull-right" name="sendrequest" value="##support_request_send" />
 								</div>
 							</form>
 						</td>
@@ -263,6 +256,6 @@ ob_start();
 require(DIR_WS_INCLUDES . 'application_bottom.php');
 
 $content = ob_get_clean();
-$content = $wcs->replaceLanguagePlaceholders($content);
+$content = $qcs->replaceLanguagePlaceholders($content);
 echo $content;
 

@@ -80,7 +80,7 @@ class qcs_invoice_ORIGIN extends QentaCheckoutSeamless
         }
 
         $script = "<script>
-    function wcsInvoiceCheckBirthdate(element) {
+    function qcsInvoiceCheckBirthdate(element) {
         var el = $(element);
         
         var day = (el.attr('name').indexOf(\"_day\")!==-1?el:$('select[name$=_birthdate_day]',el.parent())).val();
@@ -93,29 +93,29 @@ class qcs_invoice_ORIGIN extends QentaCheckoutSeamless
         dob.setYear(year);
         dob.setHours(12,0,0,0);
         
-        var error = '<div class=\"col-xs-12 wcsAgeError alert alert-danger\" style=\"margin-bottom:0\">" . $this->_seamless->getText('birthdate_too_young') . "</div>';
+        var error = '<div class=\"col-xs-12 qcsAgeError alert alert-danger\" style=\"margin-bottom:0\">" . $this->_seamless->getText('birthdate_too_young') . "</div>';
        
             if (Math.abs(new Date(Date.now() - dob.getTime()).getUTCFullYear() - 1970) < 18) {
-                if (el.closest('.form-group').find('.wcsAgeError').length == 0) {
+                if (el.closest('.form-group').find('.qcsAgeError').length == 0) {
                     el.closest('.form-group').append(error);
                 } else {
-                    el.closest('.form-group').find('.wcsAgeError').show();
+                    el.closest('.form-group').find('.qcsAgeError').show();
                 }
             } else {
-                el.closest('.form-group').find('.wcsAgeError').hide();
+                el.closest('.form-group').find('.qcsAgeError').hide();
             }
     }
 </script>";
 
 
         $field = "$script<div class='form-inline'>
-        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_day' onchange='wcsInvoiceCheckBirthdate(this)'>
+        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_day' onchange='qcsInvoiceCheckBirthdate(this)'>
             $days_options
         </select>
-        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_month' onchange='wcsInvoiceCheckBirthdate(this)'>
+        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_month' onchange='qcsInvoiceCheckBirthdate(this)'>
             $months_options
         </select>
-        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_year' onchange='wcsInvoiceCheckBirthdate(this)'>
+        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_year' onchange='qcsInvoiceCheckBirthdate(this)'>
             $years_options
         </select>
     </div>";

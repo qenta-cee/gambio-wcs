@@ -1,31 +1,23 @@
-# Wirecard Checkout Seamless plugin for Gambio GX3
+# QENTA Checkout Seamless plugin for Gambio GX3/GX4
 
-[![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/wirecard/gambio-wcs/master/LICENSE)
-[![Gambio GX3](https://img.shields.io/badge/Gambio_GX3-v3.10.0.1-green.svg)](https://www.gambio.de/)
-[![PHP v5.6](https://img.shields.io/badge/php-v5.6-yellow.svg)](http://www.php.net)
-[![PHP v7.0](https://img.shields.io/badge/php-v7.0-yellow.svg)](http://www.php.net)
-[![PHP v7.1](https://img.shields.io/badge/php-v7.1-yellow.svg)](http://www.php.net)
-
-----
-**IMPORTANT INFORMATION**  
-You are visiting a shop extension which will become obsolete in the near future. It will be replaced by a new one, which has new features and enhanced functionality very soon.  
-Please then use our new shop extension available on gambio.wirecard.com, which will be released soon and then maintained, updated and supported on a regular basis.  
-If you have any questions, please contact shop-systems-support@wirecard.com
+[![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/qenta-cee/gambio-qcs/master/LICENSE)
+[![Gambio GX3](https://img.shields.io/badge/Gambio_GX4-v4.0.2.0-green.svg)](https://www.gambio.de/)
+[![PHP v7.2](https://img.shields.io/badge/php-v7.2-yellow.svg)](http://www.php.net)
 
 ----
 
-Wirecard Checkout Seamless plugin for Gambio GX3. 
+QENTA Checkout Seamless plugin for Gambio GX4. 
 
-Our [Online Guides](https://guides.wirecard.at/) provide further information on payment methods and additional features. Please observe our [terms of use](https://guides.wirecard.at/shop_plugins:info#terms_of_use) regarding plugins.
+Our [Online Guides](https://guides.qenta.com/) provide further information on payment methods and additional features. Please observe our [terms of use](https://guides.qenta.com/shop_plugins:info#terms_of_use) regarding plugins.
 
 ## Installation
-Our [Online Guides](https://guides.wirecard.at/shop_plugins:gambio_wcs:start "Installation details") also provide technical documentation, installation and configuration instructions for the plugin.
+Our [Online Guides](https://guides.qenta.com/shop_plugins:gambio_qcs:start "Installation details") also provide technical documentation, installation and configuration instructions for the plugin.
 
 
-## Wirecard Checkout Seamless
-Wirecard Checkout Seamless is designed to meet the ambitious demands of merchants offering a wide range of payment methods while at the same time fulfilling PCI DSS compliance. The interface is integrated seamlessly into the online shop and allows a customized configuration of the payment process (cross-selling and up-selling) based on your business. 
+## QMORE Checkout Seamless
+QMORE Checkout Seamless is designed to meet the ambitious demands of merchants offering a wide range of payment methods while at the same time fulfilling PCI DSS compliance. The interface is integrated seamlessly into the online shop and allows a customized configuration of the payment process (cross-selling and up-selling) based on your business. 
 
-Wirecard Checkout Seamless offers:
+QMORE Checkout Seamless offers:
 - National and international payment methods: credit cards, debit cards, online banking payments, mobile payment solutions and alternative payment methods.
 - One interface for all payment methods.
 - More than 120 currencies.
@@ -36,5 +28,3 @@ Wirecard Checkout Seamless offers:
 - PCI DSS 3 SAQ A or SAQ A-EP compliant.
 - Easy to add new payment methods, additional features, languages and currencies, etc.
 - Web interface for managing payments (approvals, cancelations, credits, etc.).
-- Benefit from Wirecard Bank´s license to conclude credit card acceptance contracts (acquiring) and issue credit cards.
-- With Wirecard Collecting only a single contract is required for payouts within various payment methods.
