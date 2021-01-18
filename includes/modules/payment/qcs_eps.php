@@ -7,15 +7,15 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_eps_ORIGIN extends WirecardCheckoutSeamless
+class qcs_eps_ORIGIN extends QentaCheckoutSeamless
 {
 	protected $_defaultSortOrder = 2;
-	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::EPS;
+	protected $_paymenttype      = QentaCEE\Stdlib\PaymentTypeAbstract::EPS;
 	protected $_logoFilename     = 'eps.png';
 
 
@@ -27,9 +27,9 @@ class wcs_eps_ORIGIN extends WirecardCheckoutSeamless
 			return false;
 		}
 
-		$field = '<select class="wcs_eps input-select form-control" name="wcs_financialinstitution_eps">';
+		$field = '<select class="qcs_eps input-select form-control" name="qcs_financialinstitution_eps">';
 
-		foreach(WirecardCEE_QMore_PaymentType::getFinancialInstitutions($this->_paymenttype) as $value => $name)
+		foreach(QentaCEE\QMore\PaymentType::getFinancialInstitutions($this->_paymenttype) as $value => $name)
 		{
 			$field .= sprintf('<option value="%s">%s</option>', htmlspecialchars($value), $name);
 		}
@@ -46,12 +46,12 @@ class wcs_eps_ORIGIN extends WirecardCheckoutSeamless
 
 	public function pre_confirmation_check()
 	{
-		if(isset($_POST['wcs_financialinstitution_eps']))
+		if(isset($_POST['qcs_financialinstitution_eps']))
 		{
-			$_SESSION['wcs_financialinstitution'] = $_POST['wcs_financialinstitution_eps'];
+			$_SESSION['qcs_financialinstitution'] = $_POST['qcs_financialinstitution_eps'];
 		}
 	}
 
 }
 
-MainFactory::load_origin_class('wcs_eps');
+MainFactory::load_origin_class('qcs_eps');

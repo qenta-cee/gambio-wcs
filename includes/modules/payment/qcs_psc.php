@@ -7,16 +7,16 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_psc_ORIGIN extends WirecardCheckoutSeamless
+class qcs_psc_ORIGIN extends QentaCheckoutSeamless
 {
 	protected $_defaultSortOrder = 17;
-	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::PSC;
+	protected $_paymenttype      = QentaCEE\Stdlib\PaymentTypeAbstract::PSC;
 	protected $_logoFilename     = 'paysafecard.png';
 }
 
-MainFactory::load_origin_class('wcs_psc');
+MainFactory::load_origin_class('qcs_psc');

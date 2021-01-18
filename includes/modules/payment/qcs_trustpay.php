@@ -7,15 +7,15 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_trustpay_ORIGIN extends WirecardCheckoutSeamless
+class qcs_trustpay_ORIGIN extends QentaCheckoutSeamless
 {
 	protected $_defaultSortOrder      = 26;
-	protected $_paymenttype           = WirecardCEE_Stdlib_PaymentTypeAbstract::TRUSTPAY;
+	protected $_paymenttype           = QentaCEE\Stdlib\PaymentTypeAbstract::TRUSTPAY;
 	protected $_financialInstitutions = null;
 	protected $_logoFilename          = 'trustpay.jpg';
 
@@ -28,7 +28,7 @@ class wcs_trustpay_ORIGIN extends WirecardCheckoutSeamless
 			return false;
 		}
 
-		$field = '<select class="wcs_trustpay input-select" name="wcs_financialinstitution_trustpay">';
+		$field = '<select class="qcs_trustpay input-select" name="qcs_financialinstitution_trustpay">';
 
 		foreach($this->_financialInstitutions as $fin)
 		{
@@ -74,11 +74,11 @@ class wcs_trustpay_ORIGIN extends WirecardCheckoutSeamless
 	 */
 	public function pre_confirmation_check()
 	{
-		if(isset($_POST['wcs_financialinstitution_trustpay']))
+		if(isset($_POST['qcs_financialinstitution_trustpay']))
 		{
-			$_SESSION['wcs_financialinstitution'] = $_POST['wcs_financialinstitution_trustpay'];
+			$_SESSION['qcs_financialinstitution'] = $_POST['qcs_financialinstitution_trustpay'];
 		}
 	}
 }
 
-MainFactory::load_origin_class('wcs_trustpay');
+MainFactory::load_origin_class('qcs_trustpay');

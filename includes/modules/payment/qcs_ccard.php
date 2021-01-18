@@ -7,15 +7,15 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
+class qcs_ccard_ORIGIN extends QentaCheckoutSeamless_ORIGIN
 {
 	protected $_defaultSortOrder = 1;
-	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::CCARD;
+	protected $_paymenttype      = QentaCEE\Stdlib\PaymentTypeAbstract::CCARD;
 	protected $_logoFilename     = 'ccard.png';
 
 
@@ -31,7 +31,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 		{
 			$content['fields'][] = array(
 				'title' => '',
-				'field' => sprintf('<div id="wcsIframeContainer%s"></div>', $this->code)
+				'field' => sprintf('<div id="qcsIframeContainer%s"></div>', $this->code)
 			);
 
 			return $content;
@@ -43,17 +43,17 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 		{
 			$content['fields'][] = array(
 				'title' => $this->_seamless->getText('creditcard_cardholder'),
-				'field' => sprintf('<input type="text" class="%s input-text" name="wcs_cardholder" data-wcs-fieldname="cardholdername" autocomplete="off" value=""/>',
+				'field' => sprintf('<input type="text" class="%s input-text" name="qcs_cardholder" data-wcs-fieldname="cardholdername" autocomplete="off" value=""/>',
 				                   $cssClass)
 			);
 		}
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('creditcard_pan'),
-			'field' => sprintf('<input type="text" class="%s input-text" name="wcs_cardnumber" data-wcs-fieldname="pan" autocomplete="off" value=""/>',
+			'field' => sprintf('<input type="text" class="%s input-text" name="qcs_cardnumber" data-wcs-fieldname="pan" autocomplete="off" value=""/>',
 			                   $cssClass)
 		);
 
-		$field = sprintf('<select name="wcs_expirationmonth" class="%s wcs_expirationmonth" data-wcs-fieldname="expirationMonth">',
+		$field = sprintf('<select name="qcs_expirationmonth" class="%s qcs_expirationmonth" data-wcs-fieldname="expirationMonth">',
 		                 $cssClass);
 		for($m = 1; $m <= 12; $m++)
 		{
@@ -61,7 +61,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 		}
 		$field .= '</select>&nbsp;';
 
-		$field .= sprintf('<select name="wcs_expirationyear" class="%s wcs_expirationyear" data-wcs-fieldname="expirationYear">',
+		$field .= sprintf('<select name="qcs_expirationyear" class="%s qcs_expirationyear" data-wcs-fieldname="expirationYear">',
 		                  $cssClass);
 		foreach($this->getCreditCardYears() as $y)
 		{
@@ -71,7 +71,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 
 		if($this->_seamless->getConfigValue('creditcard_showcvc'))
 		{
-			$field .= sprintf('<div class="label wcs_label_cvc">CVC</div><input type="text" class="%s wcs_cvc input-text" name="wcs_cvc" data-wcs-fieldname="cardverifycode" autocomplete="off" value="" maxlength="4"/>',
+			$field .= sprintf('<div class="label qcs_label_cvc">CVC</div><input type="text" class="%s qcs_cvc input-text" name="qcs_cvc" data-wcs-fieldname="cardverifycode" autocomplete="off" value="" maxlength="4"/>',
 			                  $cssClass);
 		}
 		$content['fields'][] = array(
@@ -81,7 +81,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 
 		if($this->_seamless->getConfigValue('creditcard_showissuedate'))
 		{
-			$field = sprintf('<select name="wcs_issuemonth" class="%s wcs_issuemonth" data-wcs-fieldname="issueMonth">',
+			$field = sprintf('<select name="qcs_issuemonth" class="%s qcs_issuemonth" data-wcs-fieldname="issueMonth">',
 			                 $cssClass);
 			for($m = 1; $m <= 12; $m++)
 			{
@@ -89,7 +89,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 			}
 			$field .= '</select>&nbsp;';
 
-			$field .= sprintf('<select name="wcs_issueyear" class="%s wcs_issueyear" data-wcs-fieldname="issueYear">',
+			$field .= sprintf('<select name="qcs_issueyear" class="%s qcs_issueyear" data-wcs-fieldname="issueYear">',
 			                  $cssClass);
 			foreach($this->getCreditCardIssueYears() as $y)
 			{
@@ -106,7 +106,7 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 		{
 			$content['fields'][] = array(
 				'title' => $this->_seamless->getText('creditcard_issuenumber'),
-				'field' => sprintf('<input type="text" class="%s wcs_issuenumber input-text" name="wcs_issuenumber" data-wcs-fieldname="issueNumber" autocomplete="off" value="" maxlength="2"/>',
+				'field' => sprintf('<input type="text" class="%s qcs_issuenumber input-text" name="qcs_issuenumber" data-wcs-fieldname="issueNumber" autocomplete="off" value="" maxlength="2"/>',
 				                   $cssClass)
 			);
 		}
@@ -116,4 +116,4 @@ class wcs_ccard_ORIGIN extends WirecardCheckoutSeamless_ORIGIN
 
 }
 
-MainFactory::load_origin_class('wcs_ccard');
+MainFactory::load_origin_class('qcs_ccard');

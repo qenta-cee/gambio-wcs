@@ -7,15 +7,15 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_voucher_ORIGIN extends WirecardCheckoutSeamless
+class qcs_voucher_ORIGIN extends QentaCheckoutSeamless
 {
 	protected $_defaultSortOrder = 25;
-	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::VOUCHER;
+	protected $_paymenttype      = QentaCEE\Stdlib\PaymentTypeAbstract::VOUCHER;
 	protected $_logoFilename     = 'voucher.png';
 
 
@@ -29,7 +29,7 @@ class wcs_voucher_ORIGIN extends WirecardCheckoutSeamless
 
 		$content['fields'][] = array(
 			'title' => $this->_seamless->getText('voucher_voucherid'),
-			'field' => '<input type="text" class="wcs_voucher input-text" name="wcs_voucherid" data-wcs-fieldname="voucherId" autocomplete="off" value=""/>'
+			'field' => '<input type="text" class="qcs_voucher input-text" name="qcs_voucherid" data-wcs-fieldname="voucherId" autocomplete="off" value=""/>'
 		);
 
 		return $content;
@@ -37,4 +37,4 @@ class wcs_voucher_ORIGIN extends WirecardCheckoutSeamless
 
 }
 
-MainFactory::load_origin_class('wcs_voucher');
+MainFactory::load_origin_class('qcs_voucher');

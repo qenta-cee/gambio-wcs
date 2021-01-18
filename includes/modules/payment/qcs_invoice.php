@@ -7,16 +7,16 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
+class qcs_invoice_ORIGIN extends QentaCheckoutSeamless
 {
-	protected $_defaultSortOrder = 24;
-	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::INSTALLMENT;
-	protected $_logoFilename     = 'installment.jpg';
+	protected $_defaultSortOrder = 23;
+	protected $_paymenttype      = QentaCEE\Stdlib\PaymentTypeAbstract::INVOICE;
+	protected $_logoFilename     = 'invoice.png';
 
 
 	public function __construct()
@@ -37,15 +37,6 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
         define("MODULE_PAYMENT_{$c}_PAYOLUTION_MID_DESC", $this->_seamless->getText('payolution_mid_desc'));
         define("MODULE_PAYMENT_{$c}_PAYOLUTION_CONSENT_TITLE", $this->_seamless->getText('payolution_terms'));
         define("MODULE_PAYMENT_{$c}_PAYOLUTION_CONSENT_DESC", $this->_seamless->getText('payolution_terms_desc'));
-	}
-
-
-	/**
-	 * @return bool
-	 */
-	function _preCheck()
-	{
-		return $this->invoiceInstallmentPreCheck();
 	}
 
     function selection()
@@ -89,7 +80,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
         }
 
         $script = "<script>
-    function wcsCheckBirthdate(element) {
+    function wcsInvoiceCheckBirthdate(element) {
         var el = $(element);
         
         var day = (el.attr('name').indexOf(\"_day\")!==-1?el:$('select[name$=_birthdate_day]',el.parent())).val();
@@ -118,13 +109,13 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 
 
         $field = "$script<div class='form-inline'>
-        <select class='wcs_eps input-select form-control' name='wcs_installment_birthdate_day' onchange='wcsCheckBirthdate(this)'>
+        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_day' onchange='wcsInvoiceCheckBirthdate(this)'>
             $days_options
         </select>
-        <select class='wcs_eps input-select form-control' name='wcs_installment_birthdate_month' onchange='wcsCheckBirthdate(this)'>
+        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_month' onchange='wcsInvoiceCheckBirthdate(this)'>
             $months_options
         </select>
-        <select class='wcs_eps input-select form-control' name='wcs_installment_birthdate_year' onchange='wcsCheckBirthdate(this)'>
+        <select class='qcs_eps input-select form-control' name='qcs_invoice_birthdate_year' onchange='wcsInvoiceCheckBirthdate(this)'>
             $years_options
         </select>
     </div>";
@@ -134,20 +125,21 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
             'title' => $this->_seamless->getText('birthdate'),
             'field' => $field
         );
-        if (MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT == "on" && MODULE_PAYMENT_WCS_INSTALLMENT_PROVIDER == 'Payolution') {
+
+        if (MODULE_PAYMENT_QCS_INVOICE_PAYOLUTION_CONSENT == "on" && MODULE_PAYMENT_QCS_INVOICE_PROVIDER == 'Payolution') {
             $content['fields'][] = $this->consentCheckbox();
         }
-
         return $content;
     }
 
     function consentCheckbox()
     {
-        $field = "<input class='form-control' type='checkbox' name='wcs_installment_payolution_terms' style='height: 13px; width: 13px;'/>";
+
+        $field = "<input class='form-control' type='checkbox' name='qcs_invoice_payolution_terms' style='height: 13px; width: 13px;'/>";
 
         $consent_message = preg_replace_callback("/_(.*)_/", function ($matches) {
-            if (strlen(MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_MID)) {
-                return "<a style='color:white;mix-blend-mode:difference;' href='https://payment.payolution.com/payolution-payment/infoport/dataprivacyconsent?mId=" . base64_encode(MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_MID) . "' target='_blank'>$matches[1]</a>";
+            if (strlen(MODULE_PAYMENT_QCS_INVOICE_PAYOLUTION_MID)) {
+                return "<a style='color:white;mix-blend-mode:difference;' href='https://payment.payolution.com/payolution-payment/infoport/dataprivacyconsent?mId=" . base64_encode(MODULE_PAYMENT_QCS_INVOICE_PAYOLUTION_MID) . "' target='_blank'>$matches[1]</a>";
             } else {
                 return $matches[1];
             }
@@ -158,17 +150,24 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
             'field' => $field
         );
     }
+	/**
+	 * @return bool
+	 */
+	function _preCheck()
+	{
+		return $this->invoiceInstallmentPreCheck();
+	}
 
     /**
      * check if dob is at least 18 years ago + possible consent check
      */
     public function pre_confirmation_check()
     {
-        if ($_POST['payment'] == 'wcs_installment') {
-            $day = $_POST['wcs_installment_birthdate_day'];
-            $month = $_POST['wcs_installment_birthdate_month'];
-            $year = $_POST['wcs_installment_birthdate_year'];
-            $_SESSION['wcs_birthdate'] = $year . '-' . $month . '-' . $day;
+        if ($_POST['payment'] == 'qcs_invoice') {
+            $day = $_POST['qcs_invoice_birthdate_day'];
+            $month = $_POST['qcs_invoice_birthdate_month'];
+            $year = $_POST['qcs_invoice_birthdate_year'];
+            $_SESSION['qcs_birthdate'] = $year . '-' . $month . '-' . $day;
 
             $age = (date("md", date("U", mktime(0, 0, 0, $month, $day, $year))) > date("md")
                 ? ((date("Y") - $year) - 1)
@@ -180,7 +179,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
                 die;
             }
 
-            if (MODULE_PAYMENT_WCS_INSTALLMENT_PAYOLUTION_CONSENT == "on" && $_POST['wcs_installment_payolution_terms'] !== 'on' && MODULE_PAYMENT_WCS_INSTALLMENT_PROVIDER == 'Payolution') {
+            if (MODULE_PAYMENT_QCS_INVOICE_PAYOLUTION_CONSENT == "on" && $_POST['qcs_invoice_payolution_terms'] !== 'on' && MODULE_PAYMENT_QCS_INVOICE_PROVIDER == 'Payolution') {
                 $_SESSION['gm_error_message'] = $this->_seamless->getText('payolution_terms_error');
                 xtc_redirect(GM_HTTP_SERVER . DIR_WS_CATALOG . 'checkout_payment.php');
                 die;
@@ -188,7 +187,8 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
         }
     }
 
-	/**
+
+    /**
 	 * module config
 	 * @return mixed
 	 */
@@ -198,17 +198,17 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 
 		$config['PROVIDER']   = array(
 			'configuration_value' => '',
-			'set_function'        => "wcs_cfg_pull_down_installment_provider( "
+			'set_function'        => "qcs_cfg_pull_down_invoice_provider( "
 		);
 		$config['CURRENCIES'] = array(
 			'configuration_value' => 'EUR'
 		);
         $config['EQUAL_ADDRESS'] = array(
             'configuration_value' => 'on',
-            'set_function'        => "wcs_cfg_installment_checkbox("
+            'set_function'        => "qcs_cfg_invoice_checkbox("
         );
 		$config['MIN_AMOUNT'] = array(
-			'configuration_value' => '150'
+			'configuration_value' => '10'
 		);
 		$config['MAX_AMOUNT'] = array(
 			'configuration_value' => '3500'
@@ -218,7 +218,7 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
         );
         $config['PAYOLUTION_CONSENT'] = array(
             'configuration_value' => 'off',
-            'set_function'        => "wcs_cfg_installment_terms_checkbox("
+            'set_function'        => "qcs_cfg_invoice_terms_checkbox("
         );
 
 		return $config;
@@ -226,4 +226,4 @@ class wcs_installment_ORIGIN extends WirecardCheckoutSeamless
 
 }
 
-MainFactory::load_origin_class('wcs_installment');
+MainFactory::load_origin_class('qcs_invoice');

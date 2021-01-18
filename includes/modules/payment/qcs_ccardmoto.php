@@ -7,16 +7,16 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/modules/payment/wcs_ccard.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/modules/payment/qcs_ccard.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_ccardmoto_ORIGIN extends wcs_ccard
+class qcs_ccardmoto_ORIGIN extends qcs_ccard
 {
 	protected $_defaultSortOrder = 1;
-	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::CCARD_MOTO;
+	protected $_paymenttype      = QentaCEE\Stdlib\PaymentTypeAbstract::CCARD_MOTO;
 
 
 	public function __construct()
@@ -46,7 +46,7 @@ class wcs_ccardmoto_ORIGIN extends wcs_ccard
 
 		$config['CUSTOMERGROUP'] = array(
 			'configuration_value' => '0', // default is admin
-			'set_function'        => "wcs_cfg_pull_down_customergroups(",
+			'set_function'        => "qcs_cfg_pull_down_customergroups(",
 			'use_function'        => "xtc_get_customers_status_name"
 		);
 
@@ -55,4 +55,4 @@ class wcs_ccardmoto_ORIGIN extends wcs_ccard
 
 }
 
-MainFactory::load_origin_class('wcs_ccardmoto');
+MainFactory::load_origin_class('qcs_ccardmoto');

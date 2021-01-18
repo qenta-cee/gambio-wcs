@@ -7,16 +7,16 @@
  * https://github.com/qenta-cee/gambio-qcs/blob/master/LICENSE
 */
 
-require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/WirecardCheckoutSeamless.php';
+require_once DIR_FS_DOCUMENT_ROOT . 'includes/classes/QentaCheckoutSeamless.php';
 
 /**
- * @see WirecardCheckoutSeamless_ORIGIN
+ * @see QentaCheckoutSeamless_ORIGIN
  */
-class wcs_skrillwallet_ORIGIN extends WirecardCheckoutSeamless
+class qcs_skrillwallet_ORIGIN extends QentaCheckoutSeamless
 {
 	protected $_defaultSortOrder = 8;
-	protected $_paymenttype      = WirecardCEE_Stdlib_PaymentTypeAbstract::SKRILLWALLET;
+	protected $_paymenttype      = QentaCEE\Stdlib\PaymentTypeAbstract::SKRILLWALLET;
 	protected $_logoFilename     = 'skrill_digital_wallet.jpg';
 }
 
-MainFactory::load_origin_class('wcs_skrillwallet');
+MainFactory::load_origin_class('qcs_skrillwallet');
