@@ -11,6 +11,9 @@ define('TABLE_PAYMENT_QCS', 'payment_qenta_checkout_seamless');
 
 require_once DIR_FS_DOCUMENT_ROOT . '/gm/classes/GMQentaCheckoutSeamless.php';
 
+defined('GM_HTTP_SERVER') or define('GM_HTTP_SERVER', HTTP_SERVER);
+define('MODULE_PAYMENT_QCS_WINDOW_NAME', 'qentaCheckoutSeamlessIFrame');
+
 class QentaCheckoutSeamless_ORIGIN
 {
 	public    $code;
@@ -48,6 +51,13 @@ class QentaCheckoutSeamless_ORIGIN
 	 * @var QentaCEE\QMore\DataStorage\Response\Initiation
 	 */
 	static protected $dataStore = null;
+
+    /**
+     * caches contents returned from selection() method
+     * the selection methode may be called twice, for some reasons
+     * @var
+     */
+    static protected $_selectionCache;
 
 	/**
 	 * whether datastorage init failed
@@ -88,10 +98,11 @@ class QentaCheckoutSeamless_ORIGIN
 		$this->info        = $this->constant("MODULE_PAYMENT_{$c}_TEXT_INFO"); // displayed in checkout
 		$this->description = $this->constant("MODULE_PAYMENT_{$c}_TEXT_DESC"); // displayed in admin area
 		$this->sort_order  = $this->constant("MODULE_PAYMENT_{$c}_SORT_ORDER");
-		$this->description .= '<br /><br /><a href="' . GM_HTTP_SERVER . DIR_WS_ADMIN
-		                      . 'qenta_checkout_seamless_config.php" class="button" style="margin: auto auto 10px auto; ">'
-		                      . $this->_seamless->getText('configure') . '</a>';
-
+		if($this->constant('DIR_WS_ADMIN') !== null) {
+            $this->description .= '<br /><br /><a href="' . GM_HTTP_SERVER . DIR_WS_ADMIN
+                . 'qenta_checkout_seamless_config.php" class="button" style="margin: auto auto 10px auto; ">'
+                . $this->_seamless->getText('configure') . '</a>';
+        }
 		$this->enabled = self::constant("MODULE_PAYMENT_{$c}_STATUS") == 'True';
 		define("MODULE_PAYMENT_{$c}_STATUS_TITLE", $this->_seamless->getText('active'));
 		define("MODULE_PAYMENT_{$c}_STATUS_DESC", '');
@@ -179,8 +190,8 @@ class QentaCheckoutSeamless_ORIGIN
 
         $payment_type = $this->_paymenttype;
 
-        if($payment_type == QentaCEE\Stdlib\PaymentTypeAbstract::INVOICE && $this->constant("MODULE_PAYMENT_WCP_INVOICE_PROVIDER") == "RatePay" ||
-            $payment_type == QentaCEE\Stdlib\PaymentTypeAbstract::INSTALLMENT && $this->constant("MODULE_PAYMENT_WCP_INSTALLMENT_PROVIDER") == "RatePay")
+        if($payment_type == QentaCEE\Stdlib\PaymentTypeAbstract::INVOICE && $this->constant("MODULE_PAYMENT_QCS_INVOICE_PROVIDER") == "RatePay" ||
+            $payment_type == QentaCEE\Stdlib\PaymentTypeAbstract::INSTALLMENT && $this->constant("MODULE_PAYMENT_QCS_INSTALLMENT_PROVIDER") == "RatePay")
         {
             return "<script language='JavaScript'>
                 var di = {t:'" . $consumerDeviceId . "',v:'WDWL',l:'Checkout'};
@@ -271,6 +282,12 @@ class QentaCheckoutSeamless_ORIGIN
 		}
 
 		$paymentType = $this->_paymenttype;
+
+        // avoid duplicate invocation
+		if (isset(self::$_selectionCache[$paymentType])) {
+            return self::$_selectionCache[$paymentType];
+        }
+
 		if($paymentType == QentaCEE\Stdlib\PaymentTypeAbstract::MAESTRO
 		   || $paymentType == QentaCEE\Stdlib\PaymentTypeAbstract::CCARD_MOTO
 		)

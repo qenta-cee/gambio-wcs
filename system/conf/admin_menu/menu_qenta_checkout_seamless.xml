@@ -2,6 +2,6 @@
 
 <admin_menu>
 	<menugroup id="BOX_HEADING_MODULES">
-		<menuitem sort="35" link="qenta_checkout_seamless_config.php" title="QMORE Checkout Seamless" />
+		<menuitem sort="35" link="qenta_checkout_seamless_config.php" title="QENTA Checkout Seamless" />
 	</menugroup>
 </admin_menu>
